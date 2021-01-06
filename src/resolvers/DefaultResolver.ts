@@ -41,6 +41,22 @@ export default class {
         })
         const json2 = await user.json()
         if (user.status !== 200) return null
+        await Util.prisma.user.upsert({
+            create: {
+                id: json2.id,
+                username: json2.username,
+                discriminator: json2.discriminator,
+                avatar: json2.avatar
+            },
+            update: {
+                username: json2.username,
+                discriminator: json2.discriminator,
+                avatar: json2.avatar
+            },
+            where: {
+                id: json2.id
+            }
+        })
         return jwt.sign({id: json2.id, ...json}, config.jwtSecret)
     }
 }

@@ -14,7 +14,8 @@ model User {
   id String @id
   username String
   discriminator Int
-  avatar String
+  avatar String?
+  bots Bot[]
 }
 
 model Bot {
