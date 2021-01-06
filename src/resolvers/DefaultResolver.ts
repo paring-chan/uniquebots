@@ -14,6 +14,11 @@ export default class {
         return ctx.user
     }
 
+    @Query(returns => String)
+    loginURL() {
+        return Util.DISCORD_API_ENDPOINT + `/oauth2/authorize?client_id=${config.oauth2.clientID}&redirect_uri=${config.oauth2.redirectURI}&scope=identify&response_type=code`
+    }
+
     @Mutation(returns => String, {nullable: true})
     async login(@Arg('code') code: string, @Ctx() ctx) {
         if (ctx.user) return null

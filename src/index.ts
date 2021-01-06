@@ -7,10 +7,11 @@ import cors from 'cors'
 import * as config from '../config.json'
 import { ApolloServer } from 'apollo-server-express'
 import jwt from 'jsonwebtoken'
+import UserResolver from './resolvers/UserResolver'
 
 (async () => {
     const schema = await buildSchema({
-        resolvers: [QueryResolver]
+        resolvers: [QueryResolver, UserResolver]
     })
 
     const app = express()
