@@ -5,12 +5,13 @@ import * as config from '../../config.json'
 import Util from "../Util";
 import {URLSearchParams} from 'url'
 import jwt from 'jsonwebtoken'
+import User from "../types/User";
 
 @Resolver()
 export default class {
-    @Query(returns => String)
-    test() {
-        return 'asdf'
+    @Query(returns => User, {nullable: true})
+    me(@Ctx() ctx) {
+        return ctx.user
     }
 
     @Mutation(returns => String, {nullable: true})
@@ -20,7 +21,7 @@ export default class {
             client_id: config.oauth2.clientID,
             code,
             client_secret: config.oauth2.clientSecret,
-            redirect_uri: config.oauth2.callbackURI,
+            redirect_uri: config.oauth2.redirectURI,
             grant_type: 'authorization_code',
             scope: 'identify'
         })

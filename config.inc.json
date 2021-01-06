@@ -4,5 +4,6 @@
         "clientID": "",
         "clientSecret": "",
         "redirectURI": ""
-    }
+    },
+    "jwtSecret": ""
 }

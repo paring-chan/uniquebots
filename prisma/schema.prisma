@@ -13,7 +13,7 @@ generator client {
 model User {
   id String @id
   username String
-  discriminator Int
+  discriminator String
   avatar String?
   bots Bot[]
 }
