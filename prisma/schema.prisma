@@ -16,6 +16,7 @@ model User {
   discriminator String
   avatar String?
   bots Bot[]
+  admin Boolean @default(false)
 }
 
 model Bot {
