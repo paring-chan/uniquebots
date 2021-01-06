@@ -10,6 +10,9 @@ class User {
 
     @Field()
     avatarURL: string
+
+    @Field()
+    admin: boolean
 }
 
 export default User

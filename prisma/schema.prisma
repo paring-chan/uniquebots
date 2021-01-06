@@ -1,28 +1,25 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+}
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 model User {
-  id String @id
-  username String
+  id            String  @id
+  username      String
   discriminator String
-  avatar String?
-  bots Bot[]
-  admin Boolean @default(false)
+  avatar        String?
+  admin         Boolean @default(false)
+  bots          Bot[]
 }
 
 model Bot {
-  id String @id
-  username String
+  id        String @id
+  username  String
   avatarURL String
-  ownerID String
-  owner User @relation(fields: [ownerID], references: [id])
+  ownerID   String
+  owner     User   @relation(fields: [ownerID], references: [id])
 }

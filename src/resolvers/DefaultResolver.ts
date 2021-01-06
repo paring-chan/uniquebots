@@ -14,6 +14,12 @@ export default class {
         return ctx.user
     }
 
+    @Query(returns => User, {nullable: true})
+    async profile(@Arg('id') id: string) {
+        const user = await Util.getUser(id)
+        return user ? {id: user.id} : null
+    }
+
     @Query(returns => String)
     loginURL() {
         return Util.DISCORD_API_ENDPOINT + `/oauth2/authorize?client_id=${config.oauth2.clientID}&redirect_uri=${config.oauth2.redirectURI}&scope=identify&response_type=code`

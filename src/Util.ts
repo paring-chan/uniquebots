@@ -20,4 +20,12 @@ export default class Util {
     static DISCORD_API_ENDPOINT = 'https://discord.com/api/v8'
 
     static prisma = new PrismaClient()
+
+    static async getUser(id: string) {
+        return await Util.prisma.user.findFirst({
+            where: {
+                id
+            }
+        })
+    }
 }
