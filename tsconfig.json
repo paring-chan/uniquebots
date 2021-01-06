@@ -5,7 +5,8 @@
     "lib": ["es2018", "esnext.asynciterable"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "outDir": "./dist/"
+    "outDir": "./dist/",
+    "esModuleInterop": true
   },
   "include": ["src/**/*"]
 }
