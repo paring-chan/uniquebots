@@ -20,6 +20,5 @@ model Bot {
   id        String @id
   username  String
   avatarURL String
-  ownerID   String
-  owner     User   @relation(fields: [ownerID], references: [id])
+  owner     User[]
 }

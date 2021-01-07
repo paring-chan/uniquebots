@@ -8,6 +8,7 @@ import * as config from '../config.json'
 import { ApolloServer } from 'apollo-server-express'
 import jwt from 'jsonwebtoken'
 import UserResolver from './resolvers/UserResolver'
+import Util from './Util'
 
 (async () => {
     const schema = await buildSchema({
@@ -20,7 +21,7 @@ import UserResolver from './resolvers/UserResolver'
 
     const apollo = new ApolloServer({
         schema,
-    context: ({req}) => {
+    context: async ({req}) => {
         let result = {} as any
         if (req.headers.authorization) {
             if (req.headers.authorization.startsWith('Bearer ')) {
@@ -29,6 +30,10 @@ import UserResolver from './resolvers/UserResolver'
                     result.user = jwt.verify(token, config.jwtSecret)
                 } catch {
                     result.user = null
+                }
+                if (result.user) {
+                    const data = await Util.getUser(result.user.id)
+                    if (!data) result.user = null
                 }
             }
         }
