@@ -25,8 +25,9 @@ const { PrismaClient } = require("@prisma/client");
     await addCategory('game', '게임')
     await addCategory('util', '유틸')
 
-    //
+    // lib
     await addLib('discordjs', 'discord.js')
+    await addLib('eris', 'eris')
     console.log('done.')
     await client.$disconnect()
 })()
