@@ -21,4 +21,11 @@ model Bot {
   username  String
   avatarURL String
   owner     User[]
+  categories Category[]
+}
+
+model Category {
+  id String @id
+  name String
+  bots Bot[]
 }
