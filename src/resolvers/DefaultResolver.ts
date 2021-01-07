@@ -7,6 +7,7 @@ import {URLSearchParams} from 'url'
 import jwt from 'jsonwebtoken'
 import User from "../types/User";
 import Category from "../types/Category";
+import Library from "../types/Library";
 
 @Resolver()
 export default class {
@@ -24,6 +25,12 @@ export default class {
     @Query(returns => [Category])
     async categories() {
         const categories = await Util.prisma.category.findMany()
+        return categories
+    }
+
+    @Query(returns => [Library])
+    async libraries() {
+        const categories = await Util.prisma.library.findMany()
         return categories
     }
 

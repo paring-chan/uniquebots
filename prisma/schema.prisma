@@ -20,8 +20,13 @@ model Bot {
   id        String @id
   username  String
   avatarURL String
+  website String?
+  git String?
+  support String?
   owner     User[]
   categories Category[]
+  libraryID String
+  library Library @relation(fields: [libraryID], references: [id])
 }
 
 model Category {
@@ -29,3 +34,10 @@ model Category {
   name String
   bots Bot[]
 }
+
+model Library {
+  id String @id
+  name String
+  bots Bot[]
+}
+
