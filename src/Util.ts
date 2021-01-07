@@ -22,7 +22,7 @@ export default class Util {
     static prisma = new PrismaClient()
 
     static async getUser(id: string) {
-        return await Util.prisma.user.findFirst({
+        return await Util.prisma.user.findUnique({
             where: {
                 id
             }

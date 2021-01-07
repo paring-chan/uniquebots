@@ -16,6 +16,12 @@ const { PrismaClient } = require("@prisma/client");
         }
     })
     await addCategory('moderation', '관리')
+    await addCategory('music', '음악')
+    await addCategory('translation', '번역')
+    await addCategory('chat', '대화')
+    await addCategory('search', '검색')
+    await addCategory('game', '게임')
+    await addCategory('util', '유틸')
     console.log('done.')
     await client.$disconnect()
 })()
