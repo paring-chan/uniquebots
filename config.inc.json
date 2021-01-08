@@ -1,9 +1,9 @@
 {
-    "port": 1234,
-    "oauth2": {
-        "clientID": "",
-        "clientSecret": "",
-        "redirectURI": ""
-    },
-    "jwtSecret": ""
+  "port": 1234,
+  "oauth2": {
+    "clientID": "",
+    "clientSecret": "",
+    "redirectURI": ""
+  },
+  "jwtSecret": ""
 }

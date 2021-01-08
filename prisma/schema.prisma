@@ -27,6 +27,7 @@ model Bot {
   categories Category[]
   libraryID String
   library Library @relation(fields: [libraryID], references: [id])
+  approved Boolean @default(false)
 }
 
 model Category {
