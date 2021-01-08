@@ -29,7 +29,7 @@ model Bot {
   libraryID  String
   library    Library    @relation(fields: [libraryID], references: [id])
   approved   Boolean    @default(false)
-  Judge      Judge[]
+  judges     Judge[]
 }
 
 model Judge {

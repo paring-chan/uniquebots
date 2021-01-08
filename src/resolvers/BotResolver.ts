@@ -71,27 +71,31 @@ export default class {
       if (!categories.find((r) => r.id === c))
         throw new ApolloError(`Category '${c}' not found`, 'VALIDATION_ERROR')
     }
-    await Util.prisma.bot.create({
+    await Util.prisma.judge.create({
       data: {
-        id,
-        prefix,
-        avatarURL: 'https://cdn.discordapp.com/embed/avatars/0.png',
-        library: {
-          connect: {
-            id: lib.id,
+        bot: {
+          create: {
+            id,
+            prefix,
+            avatarURL: 'https://cdn.discordapp.com/embed/avatars/0.png',
+            library: {
+              connect: {
+                id: lib.id,
+              },
+            },
+            username: '',
+            git: git as string,
+            website: website as string,
+            support: support as string,
+            owner: {
+              connect: {
+                id: ctx.user.id,
+              },
+            },
+            categories: {
+              connect: category.map((r) => ({ id: r })),
+            },
           },
-        },
-        username: '',
-        git: git as string,
-        website: website as string,
-        support: support as string,
-        owner: {
-          connect: {
-            id: ctx.user.id,
-          },
-        },
-        categories: {
-          connect: category.map((r) => ({ id: r })),
         },
       },
     })
