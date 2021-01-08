@@ -27,6 +27,6 @@
     "type-graphql": "^1.1.1"
   },
   "scripts": {
-    "dev": "concurrently \"tsc -w\" \"nodemon -e js,graphql,json dist\""
+    "dev": "concurrently \"tsc -w\" \"nodemon -e js,graphql,json --delay 1 dist\""
   }
 }

@@ -1,18 +1,25 @@
-import express = require("express")
-import "reflect-metadata"
-import { buildSchema } from "type-graphql"
-import QueryResolver from "./resolvers/DefaultResolver"
-import cors from "cors"
+import express = require('express')
+import 'reflect-metadata'
+import { buildSchema } from 'type-graphql'
+import QueryResolver from './resolvers/DefaultResolver'
+import cors from 'cors'
 // @ts-ignore
-import * as config from "../config.json"
-import { ApolloServer } from "apollo-server-express"
-import jwt from "jsonwebtoken"
-import UserResolver from "./resolvers/UserResolver"
-import Util from "./Util"
-import BotResolver from "./resolvers/BotResolver"
-;(async () => {
+import * as config from '../config.json'
+import { ApolloServer } from 'apollo-server-express'
+import jwt from 'jsonwebtoken'
+import UserResolver from './resolvers/UserResolver'
+import Util, { URL } from './Util'
+import BotResolver from './resolvers/BotResolver'
+;import URLScalar from './scalars/URLScalar'
+(async () => {
   const schema = await buildSchema({
     resolvers: [QueryResolver, UserResolver, BotResolver],
+    scalarsMap: [
+      {
+        type: URL,
+        scalar: URLScalar
+      }
+    ]
   })
 
   const app = express()
@@ -24,8 +31,8 @@ import BotResolver from "./resolvers/BotResolver"
     context: async ({ req }) => {
       let result = {} as any
       if (req.headers.authorization) {
-        if (req.headers.authorization.startsWith("Bearer ")) {
-          const token = req.headers.authorization.slice("Bearer ".length)
+        if (req.headers.authorization.startsWith('Bearer ')) {
+          const token = req.headers.authorization.slice('Bearer '.length)
           try {
             result.user = jwt.verify(token, config.jwtSecret)
           } catch {
@@ -43,5 +50,5 @@ import BotResolver from "./resolvers/BotResolver"
 
   apollo.applyMiddleware({ app })
 
-  app.listen(config.port, () => console.log("Listening"))
+  app.listen(config.port, () => console.log('Listening'))
 })()

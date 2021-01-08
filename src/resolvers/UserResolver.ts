@@ -1,13 +1,13 @@
-import { FieldResolver, Resolver, Root } from "type-graphql"
-import User from "../types/User"
-import Util from "../Util"
+import { FieldResolver, Resolver, Root } from 'type-graphql'
+import User from '../types/User'
+import Util from '../Util'
 
 @Resolver(User)
 export default class {
   @FieldResolver()
   async tag(@Root() parent: User) {
     const data = await Util.getUser(parent.id)
-    return data.username + "#" + data.discriminator
+    return data.username + '#' + data.discriminator
   }
 
   @FieldResolver()

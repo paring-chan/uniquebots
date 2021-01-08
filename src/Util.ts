@@ -1,10 +1,10 @@
-import { PrismaClient } from "@prisma/client"
-import fetch, { RequestInfo, RequestInit, Response } from "node-fetch"
+import { PrismaClient } from '@prisma/client'
+import fetch, { RequestInfo, RequestInit, Response } from 'node-fetch'
 
 export default class Util {
   static async safeFetch(
     info: RequestInfo,
-    init: RequestInit
+    init: RequestInit,
   ): Promise<Response> {
     return new Promise(async (resolve, reject) => {
       let rejected = false
@@ -16,14 +16,18 @@ export default class Util {
       if (data.status === 429) {
         // @ts-ignore
         return new Promise(async (resolve1) =>
-          setTimeout(await data.json().then((r) => r.retry_after), resolve1)
+          setTimeout(
+            await data.json().then((r) => r.retry_after),
+            resolve1 as any,
+          ),
         ).then(() => resolve(this.safeFetch(info, init)))
       }
+
       resolve(data)
     })
   }
 
-  static DISCORD_API_ENDPOINT = "https://discord.com/api/v8"
+  static DISCORD_API_ENDPOINT = 'https://discord.com/api/v8'
 
   static prisma = new PrismaClient()
 
@@ -35,3 +39,5 @@ export default class Util {
     })
   }
 }
+
+export class URL extends String {}

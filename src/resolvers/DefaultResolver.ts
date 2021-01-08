@@ -1,13 +1,13 @@
-import fetch from "node-fetch"
-import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql"
+import fetch from 'node-fetch'
+import { Arg, Ctx, Mutation, Query, Resolver } from 'type-graphql'
 // @ts-ignore
-import * as config from "../../config.json"
-import Util from "../Util"
-import { URLSearchParams } from "url"
-import jwt from "jsonwebtoken"
-import User from "../types/User"
-import Category from "../types/Category"
-import Library from "../types/Library"
+import * as config from '../../config.json'
+import Util from '../Util'
+import { URLSearchParams } from 'url'
+import jwt from 'jsonwebtoken'
+import User from '../types/User'
+import Category from '../types/Category'
+import Library from '../types/Library'
 
 @Resolver()
 export default class {
@@ -17,7 +17,7 @@ export default class {
   }
 
   @Query((returns) => User, { nullable: true })
-  async profile(@Arg("id") id: string) {
+  async profile(@Arg('id') id: string) {
     const user = await Util.getUser(id)
     return user ? { id: user.id } : null
   }
@@ -43,33 +43,33 @@ export default class {
   }
 
   @Mutation((returns) => String, { nullable: true })
-  async login(@Arg("code") code: string, @Ctx() ctx) {
+  async login(@Arg('code') code: string, @Ctx() ctx) {
     if (ctx.user) return null
     const params = new URLSearchParams({
       client_id: config.oauth2.clientID,
       code,
       client_secret: config.oauth2.clientSecret,
       redirect_uri: config.oauth2.redirectURI,
-      grant_type: "authorization_code",
-      scope: "identify",
+      grant_type: 'authorization_code',
+      scope: 'identify',
     })
-    const res = await fetch(Util.DISCORD_API_ENDPOINT + "/oauth2/token", {
+    const res = await fetch(Util.DISCORD_API_ENDPOINT + '/oauth2/token', {
       body: params,
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-      method: "POST",
+      method: 'POST',
     })
     const json = await res.json()
     if (res.status !== 200) return null
     if (!json.access_token) return null
     const user = await Util.safeFetch(
-      Util.DISCORD_API_ENDPOINT + "/users/@me",
+      Util.DISCORD_API_ENDPOINT + '/users/@me',
       {
         headers: {
           Authorization: `${json.token_type} ${json.access_token}`,
         },
-      }
+      },
     )
     const json2 = await user.json()
     if (user.status !== 200) return null

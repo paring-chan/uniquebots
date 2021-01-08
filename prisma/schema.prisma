@@ -17,28 +17,37 @@ model User {
 }
 
 model Bot {
-  id        String @id
-  username  String
-  avatarURL String
-  website String?
-  git String?
-  support String?
-  owner     User[]
+  id         String     @id
+  username   String
+  avatarURL  String
+  website    String?
+  git        String?
+  support    String?
+  prefix     String
+  owner      User[]
   categories Category[]
-  libraryID String
-  library Library @relation(fields: [libraryID], references: [id])
-  approved Boolean @default(false)
+  libraryID  String
+  library    Library    @relation(fields: [libraryID], references: [id])
+  approved   Boolean    @default(false)
+  Judge      Judge[]
+}
+
+model Judge {
+  id         Int     @id @default(autoincrement())
+  bot        Bot     @relation(fields: [botID], references: [id])
+  botID      String
+  approved   Boolean @default(false)
+  denyReason String?
 }
 
 model Category {
-  id String @id
+  id   String @id
   name String
   bots Bot[]
 }
 
 model Library {
-  id String @id
+  id   String @id
   name String
   bots Bot[]
 }
-
