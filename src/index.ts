@@ -1,54 +1,77 @@
 import express = require('express')
 import 'reflect-metadata'
-import {buildSchema} from 'type-graphql'
+import { buildSchema } from 'type-graphql'
 import QueryResolver from './resolvers/DefaultResolver'
 import cors from 'cors'
 // @ts-ignore
 import * as config from '../config.json'
-import {ApolloServer} from 'apollo-server-express'
+import { ApolloServer, GraphQLExtension } from 'apollo-server-express'
 import jwt from 'jsonwebtoken'
 import UserResolver from './resolvers/UserResolver'
 import Util from './Util'
 import BotResolver from './resolvers/BotResolver'
-import {printSchema} from "graphql";
+import { DocumentNode, parse, print, printSchema } from 'graphql'
 import fs from 'fs'
-import * as path from "path";
+import * as path from 'path'
+import { Request } from 'express'
+import { Client } from 'discord.js'
+import chalk = require('chalk')
+;(async () => {
+  const schema = await buildSchema({
+    resolvers: [QueryResolver, UserResolver, BotResolver],
+  })
 
-(async () => {
-    const schema = await buildSchema({
-        resolvers: [QueryResolver, UserResolver, BotResolver],
-    })
+  // For webstorm intellisense
+  fs.writeFileSync(path.join(process.cwd(), 'schema.gql'), printSchema(schema))
 
-    // For webstorm intellisense
-    fs.writeFileSync(path.join(process.cwd(), 'schema.gql'), printSchema(schema))
+  const app = express()
 
-    const app = express()
+  app.use(cors())
 
-    app.use(cors())
-
-    const apollo = new ApolloServer({
-        schema,
-        context: async ({req}) => {
-            let result = {} as any
-            if (req.headers.authorization) {
-                if (req.headers.authorization.startsWith('Bearer ')) {
-                    const token = req.headers.authorization.slice('Bearer '.length)
-                    try {
-                        result.user = jwt.verify(token, config.jwtSecret)
-                    } catch {
-                        result.user = null
-                    }
-                    if (result.user) {
-                        const data = await Util.getUser(result.user.id)
-                        if (!data) result.user = null
-                    }
-                }
-            }
-            return result
+  const apollo = new ApolloServer({
+    schema,
+    context: async ({ req }) => {
+      let result = {} as any
+      if (req.headers.authorization) {
+        if (req.headers.authorization.startsWith('Bearer ')) {
+          const token = req.headers.authorization.slice('Bearer '.length)
+          try {
+            result.user = jwt.verify(token, config.jwtSecret)
+          } catch {
+            result.user = null
+          }
+          if (result.user) {
+            const data = await Util.getUser(result.user.id)
+            if (!data) result.user = null
+          }
+        }
+      }
+      return result
+    },
+    logger: {
+      warn(message?: any) {
+        console.warn(message)
+      },
+      debug(message?: any) {
+        console.debug(message)
+      },
+      error(message?: any) {
+        console.error(message)
+      },
+      info(message?: any) {
+        console.info(message)
+      },
+    },
+    plugins: [
+      {
+        requestDidStart(op) {
+          console.log(chalk.blue('GQL:POST'), print(parse(op.request.query)))
         },
-    })
+      },
+    ],
+  })
 
-    apollo.applyMiddleware({app})
+  apollo.applyMiddleware({ app })
 
-    app.listen(config.port, () => console.log('Listening'))
+  app.listen(config.port, () => console.log('Listening'))
 })()

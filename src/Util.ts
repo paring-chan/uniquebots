@@ -1,6 +1,7 @@
 import {PrismaClient} from '@prisma/client'
 import {Message, MessageEmbed, WebhookClient} from 'discord.js'
 import fetch, {RequestInfo, RequestInit, Response} from 'node-fetch'
+import {print} from 'graphql'
 // @ts-ignore
 import config from '../config.json'
 
