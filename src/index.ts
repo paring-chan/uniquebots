@@ -11,6 +11,10 @@ import UserResolver from './resolvers/UserResolver'
 import Util, { URL } from './Util'
 import BotResolver from './resolvers/BotResolver'
 ;import URLScalar from './scalars/URLScalar'
+import {printSchema} from "graphql";
+import fs from 'fs'
+import * as path from "path";
+
 (async () => {
   const schema = await buildSchema({
     resolvers: [QueryResolver, UserResolver, BotResolver],
@@ -21,6 +25,9 @@ import BotResolver from './resolvers/BotResolver'
       }
     ]
   })
+
+  // For webstorm intellisense
+  fs.writeFileSync(path.join(process.cwd(), 'schema.gql'), printSchema(schema))
 
   const app = express()
 

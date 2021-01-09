@@ -118,3 +118,5 @@ dist
 .pnp.*
 
 config.json
+
+schema.gql
