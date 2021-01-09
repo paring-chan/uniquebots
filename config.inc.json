@@ -5,5 +5,7 @@
     "clientSecret": "",
     "redirectURI": ""
   },
-  "jwtSecret": ""
+  "jwtSecret": "",
+  "webhook": "",
+  "operatorRole": ""
 }

@@ -3,6 +3,7 @@ import {Arg, Ctx, Mutation, Resolver} from 'type-graphql'
 import Util from '../Util'
 import BotAddInfo from "../inputs/BotAddInfo";
 import * as yup from 'yup'
+import {MessageEmbed} from "discord.js";
 
 @Resolver()
 export default class {
@@ -36,23 +37,20 @@ export default class {
             throw new ApolloError('Description is required.', 'VALIDATION_ERROR')
 
         if (
-            await Util.prisma.judge.findUnique({
-                include: {
+            await Util.prisma.judge.findFirst({
+                where: {
                     bot: {
-                        include: {
-                            owner: {
-                                where: {
-                                    id: ctx.user.id
-                                }
+                        owner: {
+                            some: {
+                                id: ctx.user.id
                             }
                         }
-                    }
-                },
-                where: {
+                    },
+                    pending: true
                 }
             })
         )
-            throw new ApolloError('Bot already exists.', 'ERR_BOT_ALREADY_EXISTS')
+            throw new ApolloError('심사 대기중인 봇이 있습니다.', 'ERR_BOT_ALREADY_EXISTS')
 
 
         if (
@@ -62,7 +60,7 @@ export default class {
                 },
             })
         )
-            throw new ApolloError('Bot already exists.', 'ERR_BOT_ALREADY_EXISTS')
+            throw new ApolloError('봇이 이미 존재합니다..', 'ERR_BOT_ALREADY_EXISTS')
 
         if (brief.length > 50)
             throw new ApolloError(
@@ -97,7 +95,7 @@ export default class {
             if (!categories.find((r) => r.id === c))
                 throw new ApolloError(`Category '${c}' not found`, 'VALIDATION_ERROR')
         }
-        await Util.prisma.judge.create({
+        const b = await Util.prisma.judge.create({
             data: {
                 bot: {
                     create: {
@@ -125,6 +123,27 @@ export default class {
                 },
             },
         })
+
+        await Util.sendOperator(new MessageEmbed({
+            title: '새로운 봇이 등록되었습니다.',
+            fields: [
+                {
+                    name: '봇 ID',
+                    value: b.id,
+                    inline: true
+                },
+                {
+                    name: '초대 링크',
+                    value: `[클릭](${Util.DISCORD_API_ENDPOINT}/oauth2/authorize?client_id=${b.botID}&scope=bot&permissions=0)`,
+                    inline: true
+                },
+                {
+                    name: '접두사',
+                    value: prefix,
+                    inline: true
+                }
+            ]
+        }))
 
         return true
     }

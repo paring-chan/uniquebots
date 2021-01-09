@@ -1,5 +1,8 @@
 import { PrismaClient } from '@prisma/client'
+import {Message, MessageEmbed, WebhookClient} from 'discord.js'
 import fetch, { RequestInfo, RequestInit, Response } from 'node-fetch'
+// @ts-ignore
+import config from '../config.json'
 
 export default class Util {
   static async safeFetch(
@@ -37,5 +40,11 @@ export default class Util {
         id,
       },
     })
+  }
+
+  static webhook = new WebhookClient(...config.webhook.split('/') as [string,string])
+
+  static sendOperator(embed: MessageEmbed): Promise<Message|Message[]> {
+    return this.webhook.send(`<@&${config.operatorRole}>`, embed)
   }
 }

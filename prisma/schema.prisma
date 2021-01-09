@@ -28,7 +28,7 @@ model Bot {
   categories Category[]
   libraryID  String
   library    Library    @relation(fields: [libraryID], references: [id])
-  pending   Boolean    @default(false)
+  pending   Boolean    @default(true)
   judges     Judge[]
 }
 
