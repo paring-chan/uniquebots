@@ -26,6 +26,8 @@ model Bot {
   prefix     String
   owner      User[]
   categories Category[]
+  brief String
+  description String
   libraryID  String
   library    Library    @relation(fields: [libraryID], references: [id])
   pending   Boolean    @default(true)

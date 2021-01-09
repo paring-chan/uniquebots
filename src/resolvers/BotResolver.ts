@@ -119,6 +119,8 @@ export default class {
                         categories: {
                             connect: category.map((r) => ({id: r})),
                         },
+                        brief,
+                        description
                     },
                 },
             },
@@ -128,8 +130,13 @@ export default class {
             title: '새로운 봇이 등록되었습니다.',
             fields: [
                 {
-                    name: '봇 ID',
+                    name: '심사 ID',
                     value: b.id,
+                    inline: true
+                },
+                {
+                    name: '봇 ID',
+                    value: id,
                     inline: true
                 },
                 {

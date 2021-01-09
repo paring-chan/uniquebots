@@ -982,6 +982,11 @@ dicer@0.3.0:
   dependencies:
     streamsearch "0.1.2"
 
+discord-akairo@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/discord-akairo/-/discord-akairo-8.1.0.tgz#9f3d910e12c197d40d3522a3a93679e2a746a6ca"
+  integrity sha512-INWYmHo6NgyYx1ZKGSCmgznVfvkXpWGj4fGCGjO8IPkZ06Bidb9YKr4rXy2lwG0kprCjvqY0qbbhcw6N050abQ==
+
 discord.js@discordjs/discord.js:
   version "12.5.0"
   resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/c4c817116f868cedb4ec20bcbf90b9b3d382621e"
