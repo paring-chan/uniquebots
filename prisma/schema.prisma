@@ -37,6 +37,7 @@ model Judge {
   bot        Bot     @relation(fields: [botID], references: [id])
   botID      String
   approved   Boolean @default(false)
+  pending Boolean @default(true)
   denyReason String?
 }
 

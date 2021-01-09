@@ -39,5 +39,3 @@ export default class Util {
     })
   }
 }
-
-export class URL extends String {}
