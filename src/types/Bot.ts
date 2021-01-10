@@ -1,12 +1,4 @@
-import {
-  Field,
-  FieldResolver,
-  ID,
-  ObjectType,
-  Resolver,
-  Root,
-} from 'type-graphql'
-import Util from '../Util'
+import { Field, ID, ObjectType, Resolver } from 'type-graphql'
 
 @ObjectType()
 @Resolver(Bot)
