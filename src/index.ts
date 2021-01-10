@@ -5,17 +5,16 @@ import QueryResolver from './resolvers/DefaultResolver'
 import cors from 'cors'
 // @ts-ignore
 import * as config from '../config.json'
-import { ApolloServer, GraphQLExtension } from 'apollo-server-express'
+import { ApolloServer } from 'apollo-server-express'
 import jwt from 'jsonwebtoken'
 import UserResolver from './resolvers/UserResolver'
 import Util from './Util'
 import BotResolver from './resolvers/BotResolver'
-import { DocumentNode, parse, print, printSchema } from 'graphql'
+import { parse, print, printSchema } from 'graphql'
 import fs from 'fs'
 import * as path from 'path'
-import { Request } from 'express'
-import { Client } from 'discord.js'
-import chalk = require('chalk')
+import http from 'http'
+import chalk from 'chalk'
 ;(async () => {
   const schema = await buildSchema({
     resolvers: [QueryResolver, UserResolver, BotResolver],
@@ -25,6 +24,8 @@ import chalk = require('chalk')
   fs.writeFileSync(path.join(process.cwd(), 'schema.gql'), printSchema(schema))
 
   const app = express()
+
+  Util.app = app
 
   app.use(cors())
 
@@ -83,5 +84,22 @@ import chalk = require('chalk')
 
   apollo.applyMiddleware({ app })
 
-  app.listen(config.port, () => console.log('Listening'))
+  Util.http = http.createServer(app)
+
+  Util.io = require('socket.io')(Util.http)
+
+  Util.io.use(async (socket, next) => {
+    if ((socket.handshake.query as any).auth !== config.IPCSecret)
+      return socket.disconnect(true)
+    if ((await Util.io.allSockets()).size) return socket.disconnect(true)
+    next()
+  })
+  Util.io.on('connection', async (socket) => {
+    console.log(`${chalk.green('IPC:CONNECTED')} IPC CONNECTED TO THIS SERVER.`)
+    socket.on('response', (data: { id: string; data: any }) => {
+      Util.evalMap.get(data.id)?.(data.data)
+    })
+  })
+
+  Util.http.listen(config.port, () => console.log('Listening'))
 })()

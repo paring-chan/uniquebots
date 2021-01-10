@@ -1,5 +1,6 @@
 import { Arg, FieldResolver, Resolver, Root } from 'type-graphql'
 import Permissions, { Permission } from '../Permisisons'
+import Bot from '../types/Bot'
 import User from '../types/User'
 import Util from '../Util'
 
@@ -37,5 +38,22 @@ export default class {
       Permissions.has(data.permissions, perm) ||
       Permissions.has(data.permissions, Permission.ADMIN)
     )
+  }
+
+  @FieldResolver((returns) => [Bot])
+  async bots(@Root() user: User) {
+    const data = await Util.getUser(user.id)
+    return await Util.prisma.bot.findMany({
+      include: {
+        owner: {
+          where: {
+            id: data.id,
+          },
+        },
+      },
+      where: {
+        pending: false,
+      },
+    })
   }
 }

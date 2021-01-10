@@ -7,5 +7,7 @@
   },
   "jwtSecret": "",
   "webhook": "",
-  "operatorRole": ""
+  "operatorRole": "",
+  "IPCSecret": "",
+  "botToken": ""
 }
