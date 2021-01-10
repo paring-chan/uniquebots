@@ -1,4 +1,5 @@
 import { Field, ID, ObjectType, Resolver } from 'type-graphql'
+import Category from './Category'
 
 @ObjectType()
 @Resolver(Bot)
@@ -20,6 +21,18 @@ class Bot {
 
   @Field()
   guilds: number
+
+  @Field()
+  status: string
+
+  @Field()
+  brief: string
+
+  @Field()
+  description: string
+
+  @Field((type) => [Category])
+  categories: Category[]
 }
 
 export default Bot

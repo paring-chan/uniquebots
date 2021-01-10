@@ -36,6 +36,7 @@ model Bot {
   guilds          Int        @default(0)
   discordVerified Boolean    @default(false)
   status          String     @default("online")
+  invite          String
 }
 
 model Judge {

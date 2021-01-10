@@ -35,10 +35,13 @@ export default class {
       prefix,
       support,
       website,
+      invite,
     } = data
 
     await Promise.all(
-      [support, website, website].map((it) => urlValidator.validate(it)),
+      [support, website, website, invite].map((it) =>
+        urlValidator.validate(it),
+      ),
     )
 
     if (!id) throw new ApolloError('ID is required.', 'VALIDATION_ERROR')
@@ -133,6 +136,9 @@ export default class {
             },
             brief,
             description,
+            invite:
+              invite ||
+              `${Util.DISCORD_API_ENDPOINT}/oauth2/authorize?client_id=${id}&scope=bot&perimssions=0`,
           },
         },
       },
@@ -254,5 +260,43 @@ export default class {
         .then((r) => r.discordVerified)
     }
     return data
+  }
+  @FieldResolver()
+  async status(@Root() bot: Bot) {
+    let data = (await Util.evaluate(
+      Util.getBotQuery(bot.id) + '.presence?.status || "offline"',
+    )) as string
+    if (data) {
+      await Util.prisma.bot.update({
+        data: {
+          status: data,
+        },
+        where: {
+          id: bot.id,
+        },
+      })
+    } else {
+      data = await Util.prisma.bot
+        .findUnique({
+          where: {
+            id: bot.id,
+          },
+        })
+        .then((r) => r.status)
+    }
+    return data
+  }
+
+  @FieldResolver()
+  async categories(@Root() bot: Bot) {
+    return Util.prisma.category.findMany({
+      where: {
+        bots: {
+          some: {
+            id: bot.id,
+          },
+        },
+      },
+    })
   }
 }

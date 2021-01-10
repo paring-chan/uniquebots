@@ -28,4 +28,7 @@ export default class BotAddInfo {
 
   @Field({ nullable: true })
   support: string
+
+  @Field({ nullable: true })
+  invite: string
 }
