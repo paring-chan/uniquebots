@@ -65,7 +65,17 @@ import chalk = require('chalk')
     plugins: [
       {
         requestDidStart(op) {
-          console.log(chalk.blue('GQL:POST'), print(parse(op.request.query)))
+          if (op.request.operationName === 'IntrospectionQuery') return
+          console.log(
+            chalk.blue(
+              `GQL:${op.request.http.method}${
+                op.request.operationName ? `:${op.request.operationName}` : ''
+              }`,
+            ),
+            print(parse(op.request.query))
+              .replace(/  /g, '')
+              .replace(/\n/g, ' '),
+          )
         },
       },
     ],

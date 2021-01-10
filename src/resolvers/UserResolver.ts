@@ -1,4 +1,5 @@
-import { FieldResolver, Resolver, Root } from 'type-graphql'
+import { Arg, FieldResolver, Resolver, Root } from 'type-graphql'
+import Permissions, { Permission } from '../Permisisons'
 import User from '../types/User'
 import Util from '../Util'
 
@@ -20,9 +21,21 @@ export default class {
         }`
   }
 
-  @FieldResolver()
+  @FieldResolver((returns) => Boolean)
   async admin(@Root() parent: User) {
     const data = await Util.getUser(parent.id)
-    return data.admin
+    return Permissions.has(data.permissions, Permission.ADMIN)
+  }
+
+  @FieldResolver((returns) => Boolean)
+  async hasPermission(
+    @Root() parent: User,
+    @Arg('perm', (type) => Permission) perm: Permission,
+  ) {
+    const data = await Util.getUser(parent.id)
+    return (
+      Permissions.has(data.permissions, perm) ||
+      Permissions.has(data.permissions, Permission.ADMIN)
+    )
   }
 }

@@ -12,26 +12,26 @@ model User {
   username      String
   discriminator String
   avatar        String?
-  admin         Boolean @default(false)
   bots          Bot[]
+  permissions   Int     @default(0)
 }
 
 model Bot {
-  id         String     @id
-  username   String
-  avatarURL  String
-  website    String?
-  git        String?
-  support    String?
-  prefix     String
-  owner      User[]
-  categories Category[]
-  brief String
+  id          String     @id
+  username    String
+  avatarURL   String
+  website     String?
+  git         String?
+  support     String?
+  prefix      String
+  owner       User[]
+  categories  Category[]
+  brief       String
   description String
-  libraryID  String
-  library    Library    @relation(fields: [libraryID], references: [id])
-  pending   Boolean    @default(true)
-  judges     Judge[]
+  libraryID   String
+  library     Library    @relation(fields: [libraryID], references: [id])
+  pending     Boolean    @default(true)
+  judges      Judge[]
 }
 
 model Judge {
@@ -39,7 +39,7 @@ model Judge {
   bot        Bot     @relation(fields: [botID], references: [id])
   botID      String
   approved   Boolean @default(false)
-  pending Boolean @default(true)
+  pending    Boolean @default(true)
   denyReason String?
 }
 
