@@ -33,6 +33,12 @@ export default class Util {
     })
   }
 
+  static getBotQuery(id: string) {
+    return `this.guilds.cache.get(config.guild).members.cache.get(${JSON.stringify(
+      id,
+    )})?.user`
+  }
+
   static DISCORD_API_ENDPOINT = 'https://discord.com/api/v8'
 
   static prisma = new PrismaClient({
@@ -68,7 +74,8 @@ export default class Util {
       const id = v4()
       this.evalMap.set(id, resolve)
       this.io.sockets.emit('eval', {
-          id, code
+        id,
+        code,
       })
     })
   }

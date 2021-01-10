@@ -9,5 +9,6 @@
   "webhook": "",
   "operatorRole": "",
   "IPCSecret": "",
-  "botToken": ""
+  "botToken": "",
+  "guild": ""
 }
