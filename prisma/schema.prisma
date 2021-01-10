@@ -35,6 +35,7 @@ model Bot {
   trusted         Boolean    @default(false)
   guilds          Int        @default(0)
   discordVerified Boolean    @default(false)
+  status          String     @default("online")
 }
 
 model Judge {

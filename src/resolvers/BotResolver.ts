@@ -1,5 +1,13 @@
 import { ApolloError } from 'apollo-server-express'
-import { Arg, Ctx, FieldResolver, Mutation, Resolver, Root } from 'type-graphql'
+import {
+  Arg,
+  Ctx,
+  FieldResolver,
+  Mutation,
+  Query,
+  Resolver,
+  Root,
+} from 'type-graphql'
 import Util from '../Util'
 import BotAddInfo from '../inputs/BotAddInfo'
 import * as yup from 'yup'
@@ -159,6 +167,15 @@ export default class {
     )
 
     return true
+  }
+
+  @Query((returns) => [Bot])
+  async bots() {
+    return Util.prisma.bot.findMany({
+      where: {
+        pending: false,
+      },
+    })
   }
 
   @FieldResolver()
