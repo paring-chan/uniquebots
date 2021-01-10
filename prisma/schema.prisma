@@ -17,21 +17,24 @@ model User {
 }
 
 model Bot {
-  id          String     @id
-  username    String
-  avatarURL   String
-  website     String?
-  git         String?
-  support     String?
-  prefix      String
-  owner       User[]
-  categories  Category[]
-  brief       String
-  description String
-  libraryID   String
-  library     Library    @relation(fields: [libraryID], references: [id])
-  pending     Boolean    @default(true)
-  judges      Judge[]
+  id              String     @id
+  username        String
+  avatarURL       String
+  website         String?
+  git             String?
+  support         String?
+  prefix          String
+  owner           User[]
+  categories      Category[]
+  brief           String
+  description     String
+  libraryID       String
+  library         Library    @relation(fields: [libraryID], references: [id])
+  pending         Boolean    @default(true)
+  judges          Judge[]
+  trusted         Boolean    @default(false)
+  guilds          Int        @default(0)
+  discordVerified Boolean    @default(false)
 }
 
 model Judge {

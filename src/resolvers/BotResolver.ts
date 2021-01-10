@@ -169,7 +169,7 @@ export default class {
     if (data) {
       await Util.prisma.bot.update({
         data: {
-          username: data,
+          avatarURL: data,
         },
         where: {
           id: bot.id,
@@ -187,6 +187,7 @@ export default class {
     return data
   }
 
+  @FieldResolver()
   async name(@Root() bot: Bot) {
     let data = (await Util.evaluate(
       Util.getBotQuery(bot.id) + '.username || ""',
@@ -207,7 +208,33 @@ export default class {
             id: bot.id,
           },
         })
-        .then((r) => r.id)
+        .then((r) => r.username)
+    }
+    return data
+  }
+
+  @FieldResolver()
+  async discordVerified(@Root() bot: Bot) {
+    let data = (await Util.evaluate(
+      Util.getBotQuery(bot.id) + '.flags?.has?.("DISCORD_VERIFIED") || false',
+    )) as boolean
+    if (data) {
+      await Util.prisma.bot.update({
+        data: {
+          discordVerified: data,
+        },
+        where: {
+          id: bot.id,
+        },
+      })
+    } else {
+      data = await Util.prisma.bot
+        .findUnique({
+          where: {
+            id: bot.id,
+          },
+        })
+        .then((r) => r.discordVerified)
     }
     return data
   }

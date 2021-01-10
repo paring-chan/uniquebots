@@ -19,6 +19,15 @@ class Bot {
 
   @Field()
   avatarURL: string
+
+  @Field()
+  trusted: boolean
+
+  @Field()
+  discordVerified: boolean
+
+  @Field()
+  guilds: number
 }
 
 export default Bot
