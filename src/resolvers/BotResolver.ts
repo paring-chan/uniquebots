@@ -216,7 +216,7 @@ export default class {
   @FieldResolver()
   async discordVerified(@Root() bot: Bot) {
     let data = (await Util.evaluate(
-      Util.getBotQuery(bot.id) + '.flags?.has?.("DISCORD_VERIFIED") || false',
+      Util.getBotQuery(bot.id) + '.flags?.has?.("VERIFIED_BOT") || false',
     )) as boolean
     if (data) {
       await Util.prisma.bot.update({
