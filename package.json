@@ -15,9 +15,17 @@
     "@types/yup": "^0.29.11",
     "concurrently": "^5.3.0",
     "nodemon": "^2.0.6",
-    "prettier": "^2.2.1",
     "ts-node": "^9.1.1",
-    "typescript": "^4.1.3"
+    "@types/cookies": "^0.7.6",
+    "@types/js-cookie": "^2.2.6",
+    "@types/markdown-it": "^12.0.1",
+    "@types/node": "^12.12.21",
+    "@types/nprogress": "^0.2.0",
+    "@types/react": "^16.9.16",
+    "@types/react-dom": "^16.9.4",
+    "@types/react-select": "^3.1.2",
+    "prettier": "^2.2.1",
+    "typescript": "4.0"
   },
   "dependencies": {
     "@prisma/cli": "^2.14.0",
@@ -39,11 +47,38 @@
     "socket.io-client": "^3.0.5",
     "type-graphql": "^1.1.1",
     "uuid": "^8.3.2",
-    "yup": "^0.32.8"
+    "yup": "^0.32.8",
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-fontawesome": "^0.1.14",
+    "@material-ui/core": "^4.11.2",
+    "@popperjs/core": "^2.6.0",
+    "@tippyjs/react": "^4.2.0",
+    "apollo-boost": "^0.4.9",
+    "apollo-link-context": "^1.0.20",
+    "apollo-link-http": "^1.5.17",
+    "autoprefixer": "^10.1.0",
+    "clsx": "^1.1.1",
+    "cookies": "^0.8.0",
+    "highlight.js": "^10.5.0",
+    "js-cookie": "^2.2.1",
+    "markdown-it": "^12.0.4",
+    "next": "latest",
+    "next-seo": "^4.17.0",
+    "next-with-apollo": "^5.1.0",
+    "notistack": "^1.0.3",
+    "nprogress": "^0.2.0",
+    "postcss": "^8.2.2",
+    "react": "^16.12.0",
+    "react-apollo": "^3.1.5",
+    "react-dom": "^16.12.0",
+    "react-popper": "^2.2.4",
+    "react-select": "^3.1.1",
+    "tailwindcss": "^2.0.2"
   },
   "scripts": {
     "dev": "concurrently \"tsc -w\" \"nodemon -e js --ignore node_modules --delay 1 dist\"",
     "install": "rm -rf node_modules/dokdo/node_modules/discord.js",
-    "build": "tsc"
+    "build": "tsc && next build"
   }
 }

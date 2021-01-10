@@ -15,6 +15,8 @@ import fs from 'fs'
 import * as path from 'path'
 import http from 'http'
 import chalk from 'chalk'
+import next from 'next'
+
 ;(async () => {
   const schema = await buildSchema({
     resolvers: [QueryResolver, UserResolver, BotResolver],
@@ -22,6 +24,12 @@ import chalk from 'chalk'
 
   // For webstorm intellisense
   fs.writeFileSync(path.join(process.cwd(), 'schema.gql'), printSchema(schema))
+
+  const nextApp = next({dev: process.env.NODE_ENV !== 'production'})
+
+  await nextApp.prepare()
+
+  const nextHandle = nextApp.getRequestHandler()
 
   const app = express()
 
@@ -83,6 +91,10 @@ import chalk from 'chalk'
   })
 
   apollo.applyMiddleware({ app })
+
+  app.use((req, res) => {
+    nextHandle(req, res)
+  })
 
   Util.http = http.createServer(app)
 
