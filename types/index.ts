@@ -23,8 +23,8 @@ export enum Status {
 }
 
 export enum StatusColors {
-  online = 'green-500',
-  idle = 'yellow-300',
-  dnd = 'red-500',
-  offline = 'gray-600',
+  online = 'bg-green-500',
+  idle = 'bg-yellow-300',
+  dnd = 'bg-red-500',
+  offline = 'bg-gray-600',
 }

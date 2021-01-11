@@ -25,7 +25,7 @@ const BotCard = ({ bot }: { bot: Bot }) => {
             <div
               className={clsx(
                 'w-4 h-4 inline-block rounded-full mr-2',
-                'bg-' + StatusColors[bot.status],
+                StatusColors[bot.status],
               )}
             />
             <span>{Status[bot.status]}</span>
