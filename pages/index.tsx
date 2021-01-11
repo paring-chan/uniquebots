@@ -24,6 +24,7 @@ const Home = () => {
               guilds
               status
               brief
+              trusted
               categories {
                 id
                 name

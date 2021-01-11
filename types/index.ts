@@ -8,6 +8,7 @@ export interface Bot {
   status: 'online' | 'idle' | 'dnd' | 'offline'
   categories: Category[]
   invite: string
+  trusted: boolean
 }
 
 export interface Category {
