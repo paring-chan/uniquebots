@@ -33,6 +33,9 @@ class Bot {
 
   @Field((type) => [Category])
   categories: Category[]
+
+  @Field()
+  invite: string
 }
 
 export default Bot
