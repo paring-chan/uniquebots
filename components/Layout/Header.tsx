@@ -11,10 +11,10 @@ const Header = () => {
 
   return (
     <div
-      className="mx-auto py-2 px-2 md:px-32 dark:bg-discord-black dark:text-white"
+      className="mx-auto py-2 dark:bg-discord-black dark:text-white"
       style={{ alignItems: 'center' }}
     >
-      <div className="flex justify-between">
+      <div className="flex justify-between container mx-auto">
         <div
           className="text-2xl f-jalnan flex-grow flex"
           style={{ alignItems: 'center' }}
