@@ -34,7 +34,7 @@ export function getApolloClient(
     cache: new InMemoryCache().restore(initialState || {}),
     link: authLink.concat(
       createHttpLink({
-        uri: 'http://test.pikodev.me:1234/graphql',
+        uri: 'https://beta.uniquebots.kr/graphql',
       }),
     ),
   })

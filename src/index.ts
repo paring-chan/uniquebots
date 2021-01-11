@@ -1,4 +1,4 @@
-import express = require('express')
+import express from 'express'
 import 'reflect-metadata'
 import { buildSchema } from 'type-graphql'
 import QueryResolver from './resolvers/DefaultResolver'
