@@ -10,7 +10,7 @@ const BotCard = ({ bot }: { bot: Bot }) => {
     <div className="rounded-xl bg-white dark:bg-discord-black shadow-xl w-full mt-3 flex">
       <div className="w-32">
         <img
-          className="rounded-tl-xl w-32 h-32"
+          className="rounded-tl-xl w-32 h-32 rounded-br-xl"
           src={bot.avatarURL}
           alt="avatar"
         />
