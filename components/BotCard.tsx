@@ -7,7 +7,7 @@ import { Bot, Status, StatusColors } from '../types'
 
 const BotCard = ({ bot }: { bot: Bot }) => {
   return (
-    <div className="rounded-xl bg-white shadow-xl w-full mt-3 flex">
+    <div className="rounded-xl bg-white dark:bg-discord-black shadow-xl w-full mt-3 flex">
       <div className="w-32">
         <img
           className="rounded-tl-xl w-32 h-32"
@@ -80,7 +80,7 @@ const BotCard = ({ bot }: { bot: Bot }) => {
           <Link href="/bots/[id]" as={`/bots/${bot.id}`}>
             <a
               href={bot.invite}
-              className="cursor-pointer p-3 w-1/2 text-center hover:bg-blue-400 hover:text-white transition-colors lg:rounded-br-xl whitespace-nowrap"
+              className="cursor-pointer p-3 w-1/2 text-center hover:bg-blue-400 hover:text-white transition-colors rounded-br-xl whitespace-nowrap"
             >
               더보기
             </a>
