@@ -14,7 +14,7 @@ const Header = () => {
       className="mx-auto py-2 dark:bg-discord-black dark:text-white fixed top-0 left-0 w-full"
       style={{ alignItems: 'center' }}
     >
-      <div className="flex justify-between container mx-auto">
+      <div className="flex container mx-auto">
         <div
           className="text-2xl f-jalnan flex-grow flex pl-2"
           style={{ alignItems: 'center' }}

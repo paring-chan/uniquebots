@@ -12,7 +12,7 @@ const CategoryPage: NextPage<{ category: Category }> = ({ category }) => {
         title={`카테고리 - ${category.name}`}
         description={`카테고리 ${category.name}의 봇 목록입니다.`}
       />
-      <div className="text-3xl">{category.name}</div>
+      <div className="text-3xl">카테고리 - {category.name}</div>
     </div>
   )
 }
