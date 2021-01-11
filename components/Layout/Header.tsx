@@ -16,12 +16,12 @@ const Header = () => {
     >
       <div className="flex justify-between container mx-auto">
         <div
-          className="text-2xl f-jalnan flex-grow flex"
+          className="text-2xl f-jalnan flex-grow flex pl-2"
           style={{ alignItems: 'center' }}
         >
           <Link href="/">UNIQUEBOTS</Link>
         </div>
-        <div style={{ alignItems: 'center' }} className="flex">
+        <div style={{ alignItems: 'center' }} className="flex pr-2">
           <Query
             ssr
             query={gql`

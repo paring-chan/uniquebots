@@ -1,4 +1,5 @@
 import { Field, ID, ObjectType } from 'type-graphql'
+import Bot from './Bot'
 
 @ObjectType()
 class Category {
@@ -7,6 +8,9 @@ class Category {
 
   @Field()
   name: string
+
+  @Field((type) => [Bot])
+  bots: Bot[]
 }
 
 export default Category

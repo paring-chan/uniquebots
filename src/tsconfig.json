@@ -9,6 +9,9 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
-    "skipDefaultLibCheck": true
-  }
+    "skipDefaultLibCheck": true,
+    "noEmit": false,
+    "resolveJsonModule": false
+  },
+  "extends": "../tsconfig.json"
 }

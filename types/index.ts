@@ -14,6 +14,7 @@ export interface Bot {
 export interface Category {
   id: string
   name: string
+  bots: Bot[]
 }
 
 export enum Status {

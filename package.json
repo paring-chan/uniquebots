@@ -79,6 +79,6 @@
   "scripts": {
     "dev": "concurrently \"tsc -w\" \"nodemon -e js --ignore node_modules --delay 1 dist\"",
     "install": "rm -rf node_modules/dokdo/node_modules/discord.js",
-    "build": "tsc && next build"
+    "build": "tsc --resolveJsonModule false && next build"
   }
 }

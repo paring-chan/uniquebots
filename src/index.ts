@@ -16,9 +16,10 @@ import * as path from 'path'
 import http from 'http'
 import chalk from 'chalk'
 import next from 'next'
+import CategoryResolver from './resolvers/CategoryResolver'
 ;(async () => {
   const schema = await buildSchema({
-    resolvers: [QueryResolver, UserResolver, BotResolver],
+    resolvers: [QueryResolver, UserResolver, BotResolver, CategoryResolver],
   })
 
   // For webstorm intellisense
