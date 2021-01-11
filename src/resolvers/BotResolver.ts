@@ -13,6 +13,8 @@ import BotAddInfo from '../inputs/BotAddInfo'
 import * as yup from 'yup'
 import { MessageEmbed } from 'discord.js'
 import Bot from '../types/Bot'
+// @ts-ignore
+import config from '../../config.json'
 
 @Resolver(Bot)
 export default class {
@@ -141,6 +143,7 @@ export default class {
               `${Util.DISCORD_API_ENDPOINT}/oauth2/authorize?client_id=${id}&scope=bot&perimssions=0`,
           },
         },
+        botID: id,
       },
     })
 
@@ -160,7 +163,7 @@ export default class {
           },
           {
             name: '초대 링크',
-            value: `[클릭](${Util.DISCORD_API_ENDPOINT}/oauth2/authorize?client_id=${b.botID}&scope=bot&permissions=0)`,
+            value: `[클릭](${Util.DISCORD_API_ENDPOINT}/oauth2/authorize?client_id=${b.botID}&scope=bot&permissions=0&guild_id=${config.guild})`,
             inline: true,
           },
           {

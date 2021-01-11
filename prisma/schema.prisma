@@ -41,7 +41,7 @@ model Bot {
 
 model Judge {
   id         Int     @id @default(autoincrement())
-  bot        Bot     @relation(fields: [botID], references: [id])
+  bot        Bot?
   botID      String
   approved   Boolean @default(false)
   pending    Boolean @default(true)

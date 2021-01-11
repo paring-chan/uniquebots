@@ -22,6 +22,7 @@ class AddBot extends Component<ProviderContext> {
     git: '',
     support: '',
     processing: false,
+    invite: '',
   }
 
   render() {
@@ -59,6 +60,7 @@ class AddBot extends Component<ProviderContext> {
                     git: this.state.git,
                     prefix: this.state.prefix,
                     support: this.state.support,
+                    invite: this.state.invite,
                   },
                 },
               })
@@ -215,6 +217,16 @@ class AddBot extends Component<ProviderContext> {
                   placeholder="봇의 접두사를 입력해주세요(최대 10자)"
                   className="w-full p-2 rounded-md border-gray-300 dark:bg-discord-black border dark:border-white focus:border-blue-600 transition-colors"
                   maxLength={10}
+                />
+              </label>
+              <label className="block mt-4">
+                <span>봇 초대 링크</span>
+                <input
+                  type="text"
+                  value={this.state.invite}
+                  onChange={(e) => this.setState({ invite: e.target.value })}
+                  placeholder="봇 초대 링크를 입력해주세요(비어있을 시 자동생성)"
+                  className="w-full p-2 rounded-md border-gray-300 dark:bg-discord-black border dark:border-white focus:border-blue-600 transition-colors"
                 />
               </label>
             </div>

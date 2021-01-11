@@ -42,6 +42,7 @@ export default class extends Command {
       },
       data: {
         approved: true,
+        pending: false,
         bot: {
           update: {
             pending: false,

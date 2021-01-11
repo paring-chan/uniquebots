@@ -48,7 +48,13 @@ export default class extends Command {
       },
       data: {
         approved: false,
+        pending: false,
         denyReason: reason,
+      },
+    })
+    await prisma.bot.delete({
+      where: {
+        id: bot.id,
       },
     })
     await bot.kick('봇이 승인 거부되었습니다')
