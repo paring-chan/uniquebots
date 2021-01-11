@@ -16,7 +16,7 @@ const SearchBar = ({ initial }: { initial?: string }) => {
             '/search/' + encodeURIComponent(keyword),
           )
         }}
-        className="dark:bg-discord-black border-2 border-discord-black mt-6 rounded-md flex max-w-screen-lg w-full"
+        className="dark:bg-discord-black border-2 border-discord-black rounded-md flex max-w-screen-lg w-full"
       >
         <input
           onChange={(e) => setKeyword(e.target.value)}

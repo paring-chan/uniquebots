@@ -6,7 +6,7 @@ class Layout extends Component {
     return (
       <>
         <Header />
-        <div className="container mx-auto">{this.props.children}</div>
+        <div className="container mx-auto mt-16">{this.props.children}</div>
       </>
     )
   }
