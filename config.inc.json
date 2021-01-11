@@ -10,5 +10,8 @@
   "operatorRole": "",
   "IPCSecret": "",
   "botToken": "",
-  "guild": ""
+  "guild": "",
+  "pendingRole": "",
+  "botRole": "",
+  "devRole": ""
 }
