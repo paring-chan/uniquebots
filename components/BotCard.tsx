@@ -49,11 +49,8 @@ const BotCard = ({ bot }: { bot: Bot }) => {
         <div className="flex-grow" />
         <div className="flex flex-wrap gap-1">
           {bot.categories.map((it, key) => (
-            <Link href="/categories/[id]" as={`/categories/${it.id}`}>
-              <span
-                key={key}
-                className="rounded-md bg-gray-500 cursor-pointer text-white py-1 px-3 whitespace-nowrap"
-              >
+            <Link key={key} href="/categories/[id]" as={`/categories/${it.id}`}>
+              <span className="rounded-md bg-gray-500 cursor-pointer text-white py-1 px-3 whitespace-nowrap">
                 {it.name}
               </span>
             </Link>
