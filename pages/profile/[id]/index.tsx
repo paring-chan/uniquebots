@@ -76,11 +76,13 @@ class Profile extends Component<any> {
               )}
             </div>
             <div className="md:ml-auto mx-auto md:mx-0">
-              <Link href="/editProfile">
-                <div className="p-2 dark:bg-discord-dark rounded-lg cursor-pointer">
-                  프로필 수정
-                </div>
-              </Link>
+              {user.me && (
+                <Link href="/editProfile">
+                  <div className="p-2 dark:bg-discord-dark rounded-lg cursor-pointer">
+                    프로필 수정
+                  </div>
+                </Link>
+              )}
             </div>
           </div>
         </div>
