@@ -27,34 +27,6 @@ class Profile extends Component<any> {
           }}
           description={`${user.tag}님의 프로필입니다.\n${user.description}`}
         />
-        {/* <div className="grid gap-2 pt-4">
-          <div className="lg:flex">
-            <div className="lg:w-1/2 flex text-center justify-center lg:justify-end">
-              <div className="lg:w-1/2 w-3/4">
-                <img
-                  src={user.avatarURL}
-                  alt="Avatar"
-                  className="w-full rounded-3xl shadow-xl"
-                />
-              </div>
-            </div>
-            <div className="lg:w-1/2 lg:pl-2 text-center lg:text-left pt-2 lg:pt-0">
-              <div className="text-3xl">{user.tag}</div>
-              <div>
-                {user.admin && (
-                  <Tippy content="관리자">
-                    <div className="inline-block">
-                      <FontAwesomeIcon
-                        icon={['fas', 'user-cog']}
-                        className="text-2xl"
-                      />
-                    </div>
-                  </Tippy>
-                )}
-              </div>
-            </div>
-          </div>
-        </div> */}
         <div className="bg-white shadow-xl max-w-xl rounded-xl md:flex mx-auto text-black mt-6 dark:bg-discord-black dark:text-white pt-8 md:p-0">
           <img
             src={user.avatarURL}
