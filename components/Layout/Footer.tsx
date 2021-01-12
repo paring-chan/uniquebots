@@ -45,8 +45,12 @@ const Footer = () => {
         </div>
       </div>
       <div className="w-full bg-gray-100 p-2 dark:bg-discord-black">
-        <div className="text-center">
-          2021 &copy; UniqueCode | 대표 : 송찬우 | 사업자등록번호: 799-06-00477
+        <div className="text-center md:flex md:justify-center">
+          <div className="whitespace-nowrap">2021 &copy; UniqueCode</div>
+          <div className="hidden md:block px-2">|</div>
+          <div className="whitespace-nowrap">대표 : 송찬우</div>
+          <div className="hidden md:block px-2">|</div>
+          <div className="whitespace-nowrap">사업자등록번호: 799-06-00477</div>
         </div>
       </div>
     </div>
