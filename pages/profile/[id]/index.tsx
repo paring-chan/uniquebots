@@ -62,8 +62,8 @@ class Profile extends Component<any> {
             className="w-32 h-32 md:w-48 md:h-auto mx-auto md:rounded-l-xl rounded-full md:rounded-none"
           />
           <div className="md:flex-grow flex flex-col p-2 px-8 md:px-2">
-            <div className="text-2xl mx-auto md:mx-0">{user.tag}</div>
-            <div className="flex-grow mx-auto md:mx-0">
+            <div className="text-2xl mx-auto md:mx-0 pb-2">{user.tag}</div>
+            <div className="flex-grow mx-auto md:mx-0 pb-2">
               {user.admin && (
                 <Tippy content="관리자">
                   <div className="inline-block">
