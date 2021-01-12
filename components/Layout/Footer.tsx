@@ -20,7 +20,11 @@ const Footer = () => {
             </a>
           </div>
         </div>
-        <div className="md:w-1/2 lg:w-1/3"></div>
+        <div className="md:w-1/2 lg:w-1/3">
+          <a target="_blank" href="/graphql">
+            API
+          </a>
+        </div>
       </div>
     </div>
   )
