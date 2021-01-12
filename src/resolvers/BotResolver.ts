@@ -171,6 +171,11 @@ export default class {
             value: prefix,
             inline: true,
           },
+          {
+            name: '신청자',
+            value: `<@${ctx.user.id}>`,
+            inline: true,
+          },
         ],
       }),
     )

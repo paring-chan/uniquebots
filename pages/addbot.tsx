@@ -244,7 +244,7 @@ class AddBot extends Component<ProviderContext> {
                   maxLength={5000}
                 />
                 <div
-                  className="shadow-lg bg-discord-black p-2 markdown"
+                  className="shadow-xl rounded-lg dark:bg-discord-black p-2 markdown"
                   dangerouslySetInnerHTML={{
                     __html: getMarkdown().render(this.state.description),
                   }}
@@ -253,7 +253,7 @@ class AddBot extends Component<ProviderContext> {
             </label>
             <div>
               <button
-                className="p-2 bg-purple-700 shadow-lg rounded-md"
+                className="p-2 bg-purple-700 shadow-lg rounded-md text-white"
                 type="submit"
               >
                 봇 추가하기
