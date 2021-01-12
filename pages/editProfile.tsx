@@ -25,7 +25,7 @@ const EditProfile: NextPage = ({ user }: any) => {
         </label>
       </div>
       <button
-        className="bg-purple-600 w-full p-2 rounded-md mt-2"
+        className="bg-purple-600 w-full p-2 rounded-md mt-2 text-white"
         onClick={async () => {
           const apollo = getApolloClient()
           apollo.query({
