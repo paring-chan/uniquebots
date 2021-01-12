@@ -1,4 +1,5 @@
-import { Arg, FieldResolver, Resolver, Root } from 'type-graphql'
+import { ApolloError } from 'apollo-server-express'
+import { Arg, Ctx, FieldResolver, Resolver, Root } from 'type-graphql'
 import Permissions, { Permission } from '../Permisisons'
 import Bot from '../types/Bot'
 import User from '../types/User'
@@ -43,7 +44,7 @@ export default class {
   @FieldResolver((returns) => [Bot])
   async bots(@Root() user: User) {
     const data = await Util.getUser(user.id)
-    return await Util.prisma.bot.findMany({
+    return Util.prisma.bot.findMany({
       where: {
         pending: false,
         owner: {
@@ -53,5 +54,29 @@ export default class {
         },
       },
     })
+  }
+
+  @FieldResolver((returns) => String)
+  async description(
+    @Ctx() ctx,
+    @Root() user: User,
+    @Arg('update', { nullable: true }) update?: string,
+  ) {
+    const data = await Util.getUser(user.id)
+    if (!update || ctx.user?.id !== data.id) return data.description
+    if (update.length > 50)
+      throw new ApolloError(
+        '유저 설명은 50자를 넘을 수 없습니다.',
+        'ERR_TEXT_TOO_LONG',
+      )
+    await Util.prisma.user.update({
+      data: {
+        description: update,
+      },
+      where: {
+        id: data.id,
+      },
+    })
+    return update
   }
 }

@@ -25,7 +25,7 @@ class Profile extends Component<any> {
             title: user.tag,
             description: `${user.tag}님의 프로필입니다.`,
           }}
-          description={`${user.tag}님의 프로필입니다.`}
+          description={`${user.tag}님의 프로필입니다.\n${user.description}`}
         />
         {/* <div className="grid gap-2 pt-4">
           <div className="lg:flex">
@@ -63,7 +63,7 @@ class Profile extends Component<any> {
           />
           <div className="md:flex-grow flex flex-col p-2 px-8 md:px-2">
             <div className="text-2xl mx-auto md:mx-0 pb-2">{user.tag}</div>
-            <div className="flex-grow mx-auto md:mx-0 pb-2">
+            <div className="mx-auto md:mx-0 pb-2">
               {user.admin && (
                 <Tippy content="관리자">
                   <div className="inline-block">
@@ -75,6 +75,7 @@ class Profile extends Component<any> {
                 </Tippy>
               )}
             </div>
+            <div className="flex-grow">{user.description}</div>
             <div className="md:ml-auto mx-auto md:mx-0">
               {user.me && (
                 <Link href="/editProfile">
@@ -112,6 +113,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
           tag
           avatarURL
           admin
+          description
           bots {
             id
             name
