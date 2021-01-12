@@ -3,11 +3,27 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div className="w-full mt-5 border-black border-t darK:border-white">
+    <div className="w-full mt-5 border-black border-t dark:border-white">
       <div className="container mx-auto">
         <div className="md:flex p-3 px-2">
           <div className="md:w-1/2 lg:w-1/3">
-            <div className="text-2xl">UNIQUEBOTS</div>
+            <div className="text-2xl">
+              UNIQUEBOTS
+              <button
+                className="bg-gray-300 p-1 text-black rounded-md ml-2 text-sm"
+                onClick={() => {
+                  if (localStorage.getItem('dark')) {
+                    localStorage.removeItem('dark')
+                    document.querySelector('html').classList.remove('dark')
+                  } else {
+                    localStorage.setItem('dark', '1')
+                    document.querySelector('html').classList.add('dark')
+                  }
+                }}
+              >
+                다크모드/화이트모드 전환
+              </button>
+            </div>
             <div>디스코드 봇 리스트</div>
             <div className="flex gap-1 text-xl">
               <a
