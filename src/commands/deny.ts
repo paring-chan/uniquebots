@@ -9,7 +9,7 @@ export default class extends Command {
       args: [
         {
           id: 'bot',
-          type: 'member',
+          type: 'member|string',
         },
         {
           id: 'reason',
@@ -22,12 +22,12 @@ export default class extends Command {
   }
   async exec(
     msg: Message,
-    { bot, reason }: { bot: GuildMember; reason: string },
+    { bot, reason }: { bot: GuildMember | string; reason: string },
   ) {
     const { prisma } = global
     const d = await prisma.bot.findUnique({
       where: {
-        id: bot.id,
+        id: typeof bot === 'string' ? bot : bot.id,
       },
     })
     if (!d) return msg.reply('unknown bot')
@@ -54,22 +54,26 @@ export default class extends Command {
     })
     await prisma.bot.delete({
       where: {
-        id: bot.id,
+        id: typeof bot === 'string' ? bot : bot.id,
       },
     })
-    await bot.kick('봇이 승인 거부되었습니다')
+    if (typeof bot !== 'string') {
+      await bot.kick('봇이 승인 거부되었습니다')
+    }
     const owner = await prisma.user.findFirst({
       where: {
         bots: {
           some: {
-            id: bot.id,
+            id: typeof bot === 'string' ? bot : bot.id,
           },
         },
       },
     })
     const o = msg.guild.members.cache.get(owner.id)
     await o.send(
-      `신청하신 봇 ${bot.user.tag}이(가) 거부되었습니다.\n사유: ${reason}`,
+      `신청하신 봇 ${
+        typeof bot === 'string' ? bot : bot.user.tag
+      }이(가) 거부되었습니다.\n사유: ${reason}`,
     )
     return msg.reply('denied.')
   }

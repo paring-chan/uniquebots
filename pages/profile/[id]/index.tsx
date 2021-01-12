@@ -8,7 +8,7 @@ import Tippy from '@tippyjs/react'
 
 class Profile extends Component<any> {
   render() {
-    console.log(this.props.user)
+    const { user } = this.props
     return (
       <>
         <NextSeo
@@ -24,7 +24,7 @@ class Profile extends Component<any> {
           }}
           description={`${this.props.user.tag}님의 프로필입니다.`}
         />
-        <div className="grid gap-2 pt-4">
+        {/* <div className="grid gap-2 pt-4">
           <div className="lg:flex">
             <div className="lg:w-1/2 flex text-center justify-center lg:justify-end">
               <div className="lg:w-1/2 w-3/4">
@@ -41,14 +41,17 @@ class Profile extends Component<any> {
                 {this.props.user.admin && (
                   <Tippy content="관리자">
                     <div className="inline-block">
-                      <FontAwesomeIcon icon={['fas', 'user-cog']} size="2x" />
+                      <FontAwesomeIcon
+                        icon={['fas', 'user-cog']}
+                        className="text-2xl"
+                      />
                     </div>
                   </Tippy>
                 )}
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </>
     )
   }
