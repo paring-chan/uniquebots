@@ -23,9 +23,9 @@ class Profile extends Component<any> {
               },
             ],
             title: user.tag,
-            description: `${user.tag}님의 프로필입니다.`,
+            description: user.description || `${user.tag}님의 프로필입니다.`,
           }}
-          description={`${user.tag}님의 프로필입니다.\n${user.description}`}
+          description={user.description || `${user.tag}님의 프로필입니다.`}
         />
         <div className="bg-white shadow-xl max-w-xl rounded-xl md:flex mx-auto text-black mt-6 dark:bg-discord-black dark:text-white pt-8 md:p-0">
           <img
