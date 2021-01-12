@@ -52,11 +52,6 @@ export default class extends Command {
         denyReason: reason,
       },
     })
-    await prisma.bot.delete({
-      where: {
-        id: typeof bot === 'string' ? bot : bot.id,
-      },
-    })
     if (typeof bot !== 'string') {
       await bot.kick('봇이 승인 거부되었습니다')
     }
@@ -67,6 +62,11 @@ export default class extends Command {
             id: typeof bot === 'string' ? bot : bot.id,
           },
         },
+      },
+    })
+    await prisma.bot.delete({
+      where: {
+        id: typeof bot === 'string' ? bot : bot.id,
       },
     })
     const o = msg.guild.members.cache.get(owner.id)
