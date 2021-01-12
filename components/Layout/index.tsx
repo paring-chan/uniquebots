@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Footer from './Footer'
 import Header from './Header'
 
 class Layout extends Component {
@@ -9,6 +10,7 @@ class Layout extends Component {
         <div className="container mx-auto mt-12">
           <div className="p-2">{this.props.children}</div>
         </div>
+        <Footer />
       </>
     )
   }
