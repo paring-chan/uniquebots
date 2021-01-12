@@ -44,7 +44,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="w-full bg-gray-100 p-2">
+      <div className="w-full bg-gray-100 p-2 dark:bg-discord-black">
         <div className="text-center">
           2021 &copy; UniqueCode | 대표 : 송찬우 | 사업자등록번호: 799-06-00477
         </div>
