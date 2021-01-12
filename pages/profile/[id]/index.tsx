@@ -75,7 +75,9 @@ class Profile extends Component<any> {
                 </Tippy>
               )}
             </div>
-            <div className="flex-grow">{user.description}</div>
+            <div className="flex-grow text-center md:text-left">
+              {user.description}
+            </div>
             <div className="md:ml-auto mx-auto md:mx-0">
               {user.me && (
                 <Link href="/editProfile">
