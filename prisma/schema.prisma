@@ -12,6 +12,7 @@ model User {
   username      String
   discriminator String
   avatar        String?
+  description   String  @default("")
   bots          Bot[]
   permissions   Int     @default(0)
 }
@@ -41,11 +42,12 @@ model Bot {
 
 model Judge {
   id         Int     @id @default(autoincrement())
-  bot        Bot?
+  bot        Bot?    @relation(fields: [botId], references: [id])
   botID      String
   approved   Boolean @default(false)
   pending    Boolean @default(true)
   denyReason String?
+  botId      String?
 }
 
 model Category {
