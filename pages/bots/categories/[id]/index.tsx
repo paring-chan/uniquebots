@@ -1,11 +1,11 @@
 import { NextPage, NextPageContext } from 'next'
 import React from 'react'
-import { getApolloClient } from '../../../lib/apollo'
+import { getApolloClient } from '../../../../lib/apollo'
 import { gql } from 'apollo-boost'
-import { Category } from '../../../types'
+import { Category } from '../../../../types'
 import { NextSeo } from 'next-seo'
-import BotCard from '../../../components/BotCard'
-import Paginator from '../../../components/Paginator'
+import BotCard from '../../../../components/BotCard'
+import Paginator from '../../../../components/Paginator'
 import Router from 'next/router'
 
 const CategoryPage: NextPage<{ category: Category }> = ({ category }) => {

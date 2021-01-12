@@ -49,7 +49,11 @@ const BotCard = ({ bot }: { bot: Bot }) => {
         <div className="flex-grow" />
         <div className="flex flex-wrap gap-1">
           {bot.categories.map((it, key) => (
-            <Link key={key} href="/categories/[id]" as={`/categories/${it.id}`}>
+            <Link
+              key={key}
+              href="/bots/categories/[id]"
+              as={`/bots/categories/${it.id}`}
+            >
               <span className="rounded-md bg-gray-500 cursor-pointer text-white py-1 px-3 whitespace-nowrap">
                 {it.name}
               </span>
@@ -72,7 +76,7 @@ const BotCard = ({ bot }: { bot: Bot }) => {
               </a>
             </Tippy>
           )}
-          <Link href="/bots/[id]" as={`/bots/${bot.id}`}>
+          <Link href="/bots/info/[id]" as={`/bots/info/${bot.id}`}>
             <a
               href={bot.invite}
               className="cursor-pointer p-3 w-1/2 text-center hover:bg-blue-400 hover:text-white transition-colors rounded-br-xl whitespace-nowrap"

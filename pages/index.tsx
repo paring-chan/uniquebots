@@ -6,8 +6,9 @@ import { Bot } from '../types'
 import BotCard from '../components/BotCard'
 import { NextPageContext } from 'next'
 import { getApolloClient } from '../lib/apollo'
+import Paginator from '../components/Paginator'
 
-const Home = ({ bots }: { bots: Bot[] }) => {
+const Home = ({ bots, botCount }: { bots: Bot[]; botCount: number }) => {
   return (
     <>
       <NextSeo
@@ -16,13 +17,16 @@ const Home = ({ bots }: { bots: Bot[] }) => {
       />
       <SearchBar />
       <div>
-        {
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2 grid-cols-1">
-            {bots.map((bot: Bot) => (
-              <BotCard bot={bot} key={bot.id} />
-            ))}
-          </div>
-        }
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2 grid-cols-1">
+          {bots.map((bot: Bot) => (
+            <BotCard bot={bot} key={bot.id} />
+          ))}
+        </div>
+        <Paginator
+          onChange={(v) => console.log(v)}
+          items={botCount}
+          itemsPerPage={18}
+        />
       </div>
     </>
   )
@@ -50,7 +54,12 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
       }
     `,
   })
-  return { props: { bots: data.data.bots } }
+  return {
+    props: {
+      bots: data.data.bots.slice(0, 18),
+      botCount: data.data.bots.length,
+    },
+  }
 }
 
 export default Home
