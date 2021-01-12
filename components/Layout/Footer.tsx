@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <div className="w-full mt-5 bg-blue-500 text-white border-t darK:border-white">
       <div className="container mx-auto">
-        <div className="flex p-3 px-2">
+        <div className="md:flex p-3 px-2">
           <div className="md:w-1/2 lg:w-1/3">
             <div className="text-2xl">UNIQUEBOTS</div>
             <div>디스코드 봇 리스트</div>
