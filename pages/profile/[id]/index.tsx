@@ -86,7 +86,7 @@ class Profile extends Component<any> {
             </div>
           </div>
         </div>
-        {user.bots.length && (
+        {(user.bots.length && (
           <div className="mt-6">
             <div className="text-3xl">제작한 봇</div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2 grid-cols-1">
@@ -95,7 +95,8 @@ class Profile extends Component<any> {
               ))}
             </div>
           </div>
-        )}
+        )) ||
+          null}
       </>
     )
   }
