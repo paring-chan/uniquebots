@@ -44,15 +44,13 @@ export default class {
   async bots(@Root() user: User) {
     const data = await Util.getUser(user.id)
     return await Util.prisma.bot.findMany({
-      include: {
+      where: {
+        pending: false,
         owner: {
-          where: {
+          some: {
             id: data.id,
           },
         },
-      },
-      where: {
-        pending: false,
       },
     })
   }
