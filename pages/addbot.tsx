@@ -277,7 +277,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
       }
     `,
   })
-  if (data.data.me?.id) {
+  if (data.data.me) {
     return { props: {} }
   }
   return {
