@@ -78,7 +78,6 @@ const BotCard = ({ bot }: { bot: Bot }) => {
           )}
           <Link href="/bots/info/[id]" as={`/bots/info/${bot.id}`}>
             <a
-              href={bot.invite}
               className="cursor-pointer p-3 w-1/2 text-center hover:bg-blue-400 hover:text-white transition-colors rounded-br-xl whitespace-nowrap"
             >
               더보기
