@@ -307,4 +307,15 @@ export default class {
       },
     })
   }
+
+  @Query((returns) => Bot)
+  async bot(@Arg('id') id: string) {
+    const data = await Util.prisma.bot.findUnique({
+      where: {
+        id,
+      },
+    })
+    if (!data) return null
+    return data
+  }
 }
