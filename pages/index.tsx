@@ -33,6 +33,14 @@ const Home = ({ bots, botCount }: { bots: Bot[]; botCount: number }) => {
 }
 
 export const getServerSideProps = async (ctx: NextPageContext) => {
+  let page = 0
+
+  if (ctx.query.page) {
+    if (!isNaN(Number(ctx.query.page))) {
+      page = Number(ctx.query.page)-1
+    }
+  }
+
   const client = getApolloClient(ctx)
   const data = await client.query({
     query: gql`
@@ -56,7 +64,7 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
   })
   return {
     props: {
-      bots: data.data.bots.slice(0, 18),
+      bots: data.data.bots.slice(18 * page, 18 * page + 18),
       botCount: data.data.bots.length,
     },
   }
