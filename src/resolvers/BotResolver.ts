@@ -15,6 +15,7 @@ import { MessageEmbed } from 'discord.js'
 import Bot from '../types/Bot'
 // @ts-ignore
 import config from '../../config.json'
+import User from '../types/User'
 
 @Resolver(Bot)
 export default class {
@@ -317,5 +318,33 @@ export default class {
     })
     if (!data) return null
     return data
+  }
+
+  @FieldResolver((returns) => [User])
+  async owners(@Root() bot: Bot) {
+    return Util.prisma.user.findMany({
+      where: {
+        bots: {
+          some: {
+            id: bot.id,
+          },
+        },
+      },
+    })
+  }
+
+  @FieldResolver((returns) => Boolean)
+  async isOwner(@Root() bot: Bot, @Ctx() ctx: any) {
+    return Util.prisma.user
+      .findMany({
+        where: {
+          bots: {
+            some: {
+              id: bot.id,
+            },
+          },
+        },
+      })
+      .then((r) => Boolean(r.find((r) => r.id === ctx.user?.id)))
   }
 }
