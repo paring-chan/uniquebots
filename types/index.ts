@@ -13,6 +13,7 @@ export interface Bot {
   website: string
   bot: string
   git: string
+  isOwner: boolean
 }
 
 export interface Category {

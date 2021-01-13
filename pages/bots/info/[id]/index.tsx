@@ -3,6 +3,7 @@ import Tippy from '@tippyjs/react'
 import { gql } from 'apollo-boost'
 import { NextPage, NextPageContext } from 'next'
 import { NextSeo } from 'next-seo'
+import Link from 'next/link'
 import React from 'react'
 import { getApolloClient } from '../../../../lib/apollo'
 import { getMarkdown } from '../../../../lib/markdown'
@@ -108,6 +109,21 @@ const BotInfo: NextPage<{ bot: Bot }> = ({ bot }) => {
                 Git
               </a>
             )}
+            {bot.isOwner && (
+              <Link href="/bots/edit/[id]" as={`/bots/edit/${bot.id}`}>
+                <div
+                  className="cursor-pointer hover:bg-gray-200 bg-gray-100 dark:bg-discord-black p-2 flex dark:hover:bg-dark-hover transition-colors"
+                  style={{ alignItems: 'center' }}
+                >
+                  <FontAwesomeIcon
+                    icon={['fas', 'cog']}
+                    className="mr-2"
+                    size="2x"
+                  />
+                  관리
+                </div>
+              </Link>
+            )}
           </div>
           <div className="dark:bg-discord-black bg-gray-100">
             {bot.discordVerified && (
@@ -154,6 +170,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
           description
           support
           invite
+          isOwner
           discordVerified
           categories {
             id
