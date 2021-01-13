@@ -7,6 +7,7 @@ import BotCard from '../components/BotCard'
 import { NextPageContext } from 'next'
 import { getApolloClient } from '../lib/apollo'
 import Paginator from '../components/Paginator'
+import Router from 'next/router'
 
 const Home = ({ bots, botCount }: { bots: Bot[]; botCount: number }) => {
   return (
@@ -23,7 +24,7 @@ const Home = ({ bots, botCount }: { bots: Bot[]; botCount: number }) => {
           ))}
         </div>
         <Paginator
-          onChange={(v) => console.log(v)}
+          onChange={(v) => Router.push('/bots/all/[page]', `/bots/all/${v}`)}
           items={botCount}
           itemsPerPage={18}
         />
