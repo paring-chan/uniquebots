@@ -49,7 +49,7 @@ const BotInfo: NextPage<{ bot: Bot }> = ({ bot }) => {
             ) : (
               <Tippy content="초대링크를 가져올 수 없습니다. 잠금처리된 봇일 수 있습니다.">
                 <a
-                  className="bg-discord-black p-2 flex hover:bg-dark-hover transition-colors cursor-pointer"
+                  className="hover:bg-gray-200 bg-gray-100 dark:bg-discord-black p-2 flex transition-colors cursor-pointer"
                   style={{ alignItems: 'center' }}
                 >
                   <FontAwesomeIcon
@@ -65,7 +65,7 @@ const BotInfo: NextPage<{ bot: Bot }> = ({ bot }) => {
               <a
                 href={bot.website}
                 target="_blank"
-                className="bg-discord-black p-2 flex hover:bg-dark-hover transition-colors"
+                className="hover:bg-gray-200 bg-gray-100 dark:bg-discord-black p-2 flex transition-colors"
                 style={{ alignItems: 'center' }}
               >
                 <FontAwesomeIcon
@@ -80,7 +80,7 @@ const BotInfo: NextPage<{ bot: Bot }> = ({ bot }) => {
               <a
                 href={bot.git}
                 target="_blank"
-                className="bg-discord-black p-2 flex hover:bg-dark-hover transition-colors"
+                className="hover:bg-gray-200 bg-gray-100 dark:bg-discord-black p-2 flex dark:hover:bg-dark-hover transition-colors"
                 style={{ alignItems: 'center' }}
               >
                 <FontAwesomeIcon
@@ -92,7 +92,7 @@ const BotInfo: NextPage<{ bot: Bot }> = ({ bot }) => {
               </a>
             )}
           </div>
-          <div className="bg-discord-black">
+          <div className="dark:bg-discord-black bg-gray-100">
             {bot.discordVerified && (
               <Tippy content="디스코드에서 인증받은 봇입니다.">
                 <div className="p-2 w-full">
@@ -107,7 +107,7 @@ const BotInfo: NextPage<{ bot: Bot }> = ({ bot }) => {
           </div>
         </div>
       </div>
-      <div className="mt-4 bg-discord-black p-4">
+      <div className="mt-4 bg-gray-100 dark:bg-discord-black p-4">
         <div
           className="markdown"
           dangerouslySetInnerHTML={{
