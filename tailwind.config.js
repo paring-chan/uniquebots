@@ -6,6 +6,7 @@ module.exports = {
             colors: {
                 'discord-dark': '#2C2F33',
                 'discord-black': '#23272A',
+                'dark-hover': '#4f4f4f'
             },
         },
         minHeight: {
