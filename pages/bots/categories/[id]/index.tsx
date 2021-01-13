@@ -51,6 +51,7 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
             guilds
             status
             brief
+            invite
             trusted
             categories {
               id
