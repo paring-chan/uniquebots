@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Tippy from '@tippyjs/react'
 import { gql } from 'apollo-boost'
 import { NextPage, NextPageContext } from 'next'
+import { NextSeo } from 'next-seo'
 import React from 'react'
 import { getApolloClient } from '../../../../lib/apollo'
 import { getMarkdown } from '../../../../lib/markdown'
@@ -10,8 +11,24 @@ import { Bot } from '../../../../types'
 const BotInfo: NextPage<{ bot: Bot }> = ({ bot }) => {
   return (
     <div>
+      <NextSeo
+        openGraph={{
+          description: bot.brief,
+          images: [
+            {
+              url: bot.avatarURL,
+            },
+          ],
+        }}
+        title={bot.name}
+        description={bot.description}
+      />
       <div className="flex flex-col md:flex-row gap-2">
-        <img src={bot.avatarURL} alt="avatar" className="md:w-56 md:h-56" />
+        <img
+          src={bot.avatarURL}
+          alt="avatar"
+          className="md:w-56 md:h-56 w-3/4 mx-auto"
+        />
         <div className="flex-grow">
           <div className="text-3xl">
             {bot.name}
@@ -36,7 +53,7 @@ const BotInfo: NextPage<{ bot: Bot }> = ({ bot }) => {
               <a
                 href={bot.invite}
                 target="_blank"
-                className="bg-discord-black p-2 flex hover:bg-dark-hover transition-colors"
+                className="bg-gray-100 dark:bg-discord-black p-2 flex hover:bg-gray-200 dark:hover:bg-dark-hover transition-colors"
                 style={{ alignItems: 'center' }}
               >
                 <FontAwesomeIcon
@@ -65,7 +82,7 @@ const BotInfo: NextPage<{ bot: Bot }> = ({ bot }) => {
               <a
                 href={bot.website}
                 target="_blank"
-                className="hover:bg-gray-200 bg-gray-100 dark:bg-discord-black p-2 flex transition-colors"
+                className="hover:bg-gray-200 bg-gray-100 dark:hover:bg-dark-hover dark:bg-discord-black p-2 flex transition-colors"
                 style={{ alignItems: 'center' }}
               >
                 <FontAwesomeIcon
