@@ -36,6 +36,15 @@ class Bot {
 
   @Field()
   invite: string
+
+  @Field()
+  website: string
+
+  @Field()
+  git: string
+
+  @Field()
+  support: string
 }
 
 export default Bot

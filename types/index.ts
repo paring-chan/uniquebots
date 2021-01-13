@@ -9,6 +9,10 @@ export interface Bot {
   categories: Category[]
   invite: string
   trusted: boolean
+  discordVerified: boolean
+  website: string
+  bot: string
+  git: string
 }
 
 export interface Category {

@@ -4,6 +4,7 @@ import { gql } from 'apollo-boost'
 import { NextPage, NextPageContext } from 'next'
 import React from 'react'
 import { getApolloClient } from '../../../../lib/apollo'
+import { getMarkdown } from '../../../../lib/markdown'
 import { Bot } from '../../../../types'
 
 const BotInfo: NextPage<{ bot: Bot }> = ({ bot }) => {
@@ -60,11 +61,59 @@ const BotInfo: NextPage<{ bot: Bot }> = ({ bot }) => {
                 </a>
               </Tippy>
             )}
+            {bot.website && (
+              <a
+                href={bot.website}
+                target="_blank"
+                className="bg-discord-black p-2 flex hover:bg-dark-hover transition-colors"
+                style={{ alignItems: 'center' }}
+              >
+                <FontAwesomeIcon
+                  icon={['fas', 'home']}
+                  className="mr-2"
+                  size="2x"
+                />
+                웹사이트
+              </a>
+            )}
+            {bot.git && (
+              <a
+                href={bot.git}
+                target="_blank"
+                className="bg-discord-black p-2 flex hover:bg-dark-hover transition-colors"
+                style={{ alignItems: 'center' }}
+              >
+                <FontAwesomeIcon
+                  icon={['fab', 'git-alt']}
+                  className="mr-2"
+                  size="2x"
+                />
+                Git
+              </a>
+            )}
           </div>
           <div className="bg-discord-black">
-            <div className="p-2"></div>
+            {bot.discordVerified && (
+              <Tippy content="디스코드에서 인증받은 봇입니다.">
+                <div className="p-2 w-full">
+                  <FontAwesomeIcon
+                    className="text-blue-500 mr-2"
+                    icon={['fas', 'check']}
+                  />
+                  디스코드에서 인증됨
+                </div>
+              </Tippy>
+            )}
           </div>
         </div>
+      </div>
+      <div className="mt-4 bg-discord-black p-4">
+        <div
+          className="markdown"
+          dangerouslySetInnerHTML={{
+            __html: getMarkdown().render(bot.description),
+          }}
+        />
       </div>
     </div>
   )
@@ -83,7 +132,12 @@ export async function getServerSideProps(ctx: NextPageContext) {
           status
           brief
           trusted
+          website
+          git
+          description
+          support
           invite
+          discordVerified
           categories {
             id
             name
