@@ -2,7 +2,7 @@ import React from 'react'
 import Cookies from 'cookies'
 import { NextPageContext } from 'next'
 
-const logout = async () => {
+const logout = () => {
   if (typeof window !== 'undefined') {
     window.location.assign('/')
   }
