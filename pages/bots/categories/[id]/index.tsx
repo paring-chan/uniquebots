@@ -8,8 +8,11 @@ import BotCard from '../../../../components/BotCard'
 import Paginator from '../../../../components/Paginator'
 import Router from 'next/router'
 
-const CategoryPage: NextPage<{ category: Category }> = ({ category }) => {
-  const [currentPage, setCurrentPage] = React.useState(1)
+const CategoryPage: NextPage<{ category: Category; page: number }> = ({
+  category,
+  page,
+}) => {
+  const [currentPage] = React.useState(page || 1)
 
   return (
     <div>
@@ -87,6 +90,7 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
       category: {
         ...data.data.category,
         botList: data.data.category.bots.slice(18 * page, 18 * page + 18),
+        page: ctx.query.page,
       },
     },
   }
