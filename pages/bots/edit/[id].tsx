@@ -27,7 +27,10 @@ const BotEdit: NextPage<{ bot: Bot }> = ({ bot }) => {
     <div>
       <NextSeo title="봇 수정하기" description="봇을 수정해보세요!" />
       <div className="text-2xl">
-        봇 <code className="bg-discord-black p-1 rounded-md">{bot.name}</code>{' '}
+        봇{' '}
+        <code className="bg-gray-100 dark:bg-discord-black p-1 rounded-md">
+          {bot.name}
+        </code>{' '}
         관리
       </div>
       <div></div>
