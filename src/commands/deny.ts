@@ -73,11 +73,13 @@ export default class extends Command {
       },
     })
     const o = msg.guild.members.cache.get(owner.id)
-    await o.send(
-      `신청하신 봇 ${
-        typeof bot === 'string' ? bot : bot.user.tag
-      }이(가) 거부되었습니다.\n사유: ${reason}`,
-    )
+    await o
+      .send(
+        `신청하신 봇 ${
+          typeof bot === 'string' ? bot : bot.user.tag
+        }이(가) 거부되었습니다.\n사유: ${reason}`,
+      )
+      .catch(() => null)
     return msg.reply('denied.')
   }
 }
