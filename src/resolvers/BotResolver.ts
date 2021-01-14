@@ -21,6 +21,46 @@ import Library from '../types/Library'
 @Resolver(Bot)
 export default class {
   @Mutation((returns) => Boolean)
+  async editBot(@Ctx() ctx, @Arg('data') data: BotAddInfo) {
+    const schema = yup.object().shape({
+      id: yup.string().required(),
+      brief: yup.string().required(),
+      description: yup.string().required(),
+      git: yup.string().url(),
+      library: yup
+        .string()
+        .required()
+        .test({
+          test: async (value) => {
+            const lib = await Util.prisma.library.findUnique({
+              where: { id: value },
+            })
+            return Boolean(lib)
+          },
+        }),
+      prefix: yup.string().required(),
+      website: yup.string().url(),
+      category: yup.array().min(1).required().of(yup.string()),
+      invite: yup.string().url().required(),
+    })
+    await schema.validate(data)
+    const bot = await Util.prisma.bot.findUnique({
+      where: {
+        id: data.id,
+      },
+      include: {
+        owner: true,
+      },
+    })
+    if (!bot) throw new ApolloError('Bot not found.', 'ERR_UNKNOWN_BOT')
+    if (!bot.owner.find((r) => r.id === ctx.user?.id))
+      throw new ApolloError(
+        'You must be an owner of the bot',
+        'ERR_UAUTHORIZED',
+      )
+  }
+
+  @Mutation((returns) => Boolean)
   async addBot(@Ctx() ctx, @Arg('data') data: BotAddInfo) {
     if (!ctx.user)
       throw new ApolloError(
@@ -30,15 +70,15 @@ export default class {
     const urlValidator = yup.string().url().notRequired()
 
     const {
+      id,
       brief,
-      category,
       description,
       git,
-      id,
       library,
       prefix,
-      support,
       website,
+      category,
+      support,
       invite,
     } = data
 

@@ -34,7 +34,12 @@ const BotEdit: NextPage<{ bot: Bot }> = ({ bot }) => {
         관리
       </div>
       <div></div>
-      <form>
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault()
+          const apollo = getApolloClient()
+        }}
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           <label className="block mt-4">
             <span>카테고리</span>
@@ -157,7 +162,7 @@ const BotEdit: NextPage<{ bot: Bot }> = ({ bot }) => {
               type="url"
               value={invite}
               required
-              onChange={(e) => setInvite(invite)}
+              onChange={(e) => setInvite(e.target.value)}
               placeholder="봇 초대 링크를 입력해주세요"
               className="w-full p-2 rounded-md border-gray-300 dark:bg-discord-black border dark:border-white focus:border-blue-600 transition-colors"
             />
