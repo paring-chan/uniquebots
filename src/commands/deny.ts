@@ -52,8 +52,11 @@ export default class extends Command {
         denyReason: reason,
       },
     })
-    if (typeof bot !== 'string') {
-      await bot.kick('봇이 승인 거부되었습니다')
+    const b = msg.guild.members.cache.get(
+      typeof bot === 'string' ? bot : bot.id,
+    )
+    if (b) {
+      await b.kick('봇이 승인 거부되었습니다')
     }
     const owner = await prisma.user.findFirst({
       where: {

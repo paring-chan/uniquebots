@@ -14,6 +14,16 @@ export interface Bot {
   bot: string
   git: string
   isOwner: boolean
+  owners: { id: string; tag: string }[]
+  library: Library
+  support: string
+  prefix: string
+}
+
+export interface Library {
+  id: string
+  name: string
+  bots: Bot[]
 }
 
 export interface Category {

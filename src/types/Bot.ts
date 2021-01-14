@@ -45,6 +45,9 @@ class Bot {
 
   @Field()
   support: string
+
+  @Field()
+  prefix: string
 }
 
 export default Bot

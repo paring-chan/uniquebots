@@ -16,6 +16,7 @@ import Bot from '../types/Bot'
 // @ts-ignore
 import config from '../../config.json'
 import User from '../types/User'
+import Library from '../types/Library'
 
 @Resolver(Bot)
 export default class {
@@ -346,5 +347,19 @@ export default class {
         },
       })
       .then((r) => Boolean(r.find((r) => r.id === ctx.user?.id)))
+  }
+
+  @FieldResolver((returns) => Library)
+  async library(@Root() bot: Bot) {
+    return Util.prisma.bot
+      .findFirst({
+        where: {
+          id: bot.id,
+        },
+        include: {
+          library: true,
+        },
+      })
+      .then((r) => r.library)
   }
 }

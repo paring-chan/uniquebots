@@ -9,7 +9,7 @@ import { getApolloClient } from '../../../../lib/apollo'
 import { getMarkdown } from '../../../../lib/markdown'
 import { Bot } from '../../../../types'
 
-const BotInfo: NextPage<{ bot: Bot, me: {id: string} }> = ({ bot, me }) => {
+const BotInfo: NextPage<{ bot: Bot; me: { id: string } }> = ({ bot, me }) => {
   return (
     <div>
       <NextSeo
@@ -109,7 +109,7 @@ const BotInfo: NextPage<{ bot: Bot, me: {id: string} }> = ({ bot, me }) => {
                 Git
               </a>
             )}
-            {bot.owners.find(r=>r.id === me?.id) && (
+            {bot.owners.find((r) => r.id === me?.id) && (
               <Link href="/bots/edit/[id]" as={`/bots/edit/${bot.id}`}>
                 <div
                   className="cursor-pointer hover:bg-gray-200 bg-gray-100 dark:bg-discord-black p-2 flex dark:hover:bg-dark-hover transition-colors"
