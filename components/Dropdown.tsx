@@ -37,7 +37,7 @@ const Dropdown = ({
           {({ placement, ref, style }) => (
             <div
               ref={ref}
-              style={{ ...style, zIndex: 999999 }}
+              style={{ ...style, zIndex: 99999 }}
               data-replacement={placement}
               className={clsx(
                 'bg-white text-black p-1 dark:bg-discord-black dark:text-white dark:ring-discord-black rounded-md shadow-lg ring-white ring-2 transition-all',

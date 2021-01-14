@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     <div
-      className="mx-auto py-2 dark:bg-discord-black dark:text-white fixed top-0 left-0 w-full bg-white"
+      className="mx-auto py-2 dark:bg-discord-black dark:text-white fixed top-0 left-0 w-full bg-white z-50"
       style={{ alignItems: 'center' }}
     >
       <div className="flex container mx-auto">
