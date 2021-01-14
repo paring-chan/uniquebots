@@ -63,7 +63,9 @@ export default class extends Command {
     })
     const o = msg.guild.members.cache.get(owner.id)
     o.roles.add(config.devRole)
-    await o.send(`신청하신 봇 ${bot.user.tag}이(가) 승인되었습니다.`)
+    await o
+      .send(`신청하신 봇 ${bot.user.tag}이(가) 승인되었습니다.`)
+      .catch((e) => null)
     return msg.reply('approved.')
   }
 }
