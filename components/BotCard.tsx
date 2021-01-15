@@ -8,7 +8,7 @@ import { Bot, Status, StatusColors } from '../types'
 const BotCard = ({ bot }: { bot: Bot }) => {
   return (
     <div className="rounded-xl bg-white dark:bg-discord-black shadow-xl w-full mt-3 flex">
-      <div className="w-32">
+      <div className="w-1/3">
         <img
           className="rounded-tl-xl w-32 h-32 rounded-br-xl"
           src={bot.avatarURL}
@@ -29,7 +29,7 @@ const BotCard = ({ bot }: { bot: Bot }) => {
           </div>
         </div>
       </div>
-      <div className="p-2 flex flex-col pb-0 flex-grow pr-0 gap-1">
+      <div className="p-2 flex flex-col pb-0 flex-grow pr-0 gap-1 w-2/3">
         <div className="text-2xl">
           {bot.name}
           {bot.trusted ? (
@@ -77,9 +77,7 @@ const BotCard = ({ bot }: { bot: Bot }) => {
             </Tippy>
           )}
           <Link href="/bots/info/[id]" as={`/bots/info/${bot.id}`}>
-            <a
-              className="cursor-pointer p-3 w-1/2 text-center hover:bg-blue-400 hover:text-white transition-colors rounded-br-xl whitespace-nowrap"
-            >
+            <a className="cursor-pointer p-3 w-1/2 text-center hover:bg-blue-400 hover:text-white transition-colors rounded-br-xl whitespace-nowrap">
               더보기
             </a>
           </Link>
