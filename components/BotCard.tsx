@@ -10,7 +10,7 @@ const BotCard = ({ bot }: { bot: Bot }) => {
     <div className="rounded-xl bg-white dark:bg-discord-black shadow-xl w-full mt-3 flex">
       <div className="w-1/3">
         <img
-          className="rounded-tl-xl w-32 h-32 rounded-br-xl"
+          className="rounded-tl-xl w-full rounded-br-xl"
           src={bot.avatarURL}
           alt="avatar"
         />
@@ -29,7 +29,7 @@ const BotCard = ({ bot }: { bot: Bot }) => {
           </div>
         </div>
       </div>
-      <div className="p-2 flex flex-col pb-0 flex-grow pr-0 gap-1 w-2/3">
+      <div className="p-2 flex flex-col pb-0 pr-0 gap-1 w-2/3">
         <div className="text-2xl">
           {bot.name}
           {bot.trusted ? (
