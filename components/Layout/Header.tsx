@@ -21,7 +21,6 @@ const Header = ({ user, loginURL }: { user: any; loginURL: string }) => {
         </div>
         <div style={{ alignItems: 'center' }} className="flex pr-2">
           {(() => {
-            if (typeof window === 'undefined') return null
             if (user)
               return (
                 <Dropdown
