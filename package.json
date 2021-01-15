@@ -4,6 +4,7 @@
   "main": "dist/index.js",
   "license": "MIT",
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/chalk": "^2.2.0",
     "@types/cookies": "^0.7.6",
     "@types/cors": "^2.8.9",
@@ -44,6 +45,7 @@
     "apollo-link-http": "^1.5.17",
     "apollo-server-express": "^2.19.1",
     "autoprefixer": "^10.1.0",
+    "axios": "^0.21.1",
     "chalk": "^4.1.0",
     "class-validator": "^0.12.2",
     "clsx": "^1.1.1",

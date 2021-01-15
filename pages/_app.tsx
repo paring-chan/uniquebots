@@ -7,10 +7,13 @@ import '../styles/global.css'
 import Router from 'next/router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import withApolloClient from '../lib/apollo'
 import { ApolloProvider } from 'react-apollo'
 import { SnackbarProvider } from 'notistack'
 import Error from 'next/error'
+import { NextPageContext } from 'next'
+import { getApolloClient } from '../lib/apollo'
+import { gql } from 'apollo-boost'
+import { AppContext } from 'next/app'
 // import 'tippy.js/dist/tippy.css'
 
 Router.events.on('routeChangeStart', () => NProgress.start())
@@ -19,7 +22,7 @@ Router.events.on('routeChangeError', () => NProgress.done())
 
 library.add(fas, fab)
 
-function MyApp({ Component, pageProps, apollo }: any) {
+function MyApp({ Component, pageProps }: any) {
   if (typeof localStorage !== 'undefined') {
     const dark = !!localStorage.getItem('dark')
     if (dark) {
@@ -28,22 +31,48 @@ function MyApp({ Component, pageProps, apollo }: any) {
       document.querySelector('html')!.classList.remove('dark')
     }
   }
-  return (
-    <ApolloProvider client={apollo}>
-      {pageProps.error ? (
-        <Error statusCode={pageProps.error} />
-      ) : (
-        <SnackbarProvider
-          maxSnack={6}
-          anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
-        >
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </SnackbarProvider>
-      )}
-    </ApolloProvider>
+  return pageProps.error ? (
+    <Error statusCode={pageProps.error} />
+  ) : (
+    <SnackbarProvider
+      maxSnack={6}
+      anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
+    >
+      <Layout user={pageProps.me} loginURL={pageProps.loginURL}>
+        <Component {...pageProps} />
+      </Layout>
+    </SnackbarProvider>
   )
 }
 
-export default withApolloClient(MyApp)
+MyApp.getInitialProps = async (ctx: AppContext) => {
+  /*query {
+                user: me {
+                  id
+                  tag
+                  avatarURL
+                  admin
+                }
+                loginURL
+              } */
+  const data = await getApolloClient(ctx.ctx).query({
+    query: gql`
+      query {
+        me {
+          id
+          tag
+          avatarURL
+        }
+        loginURL
+      }
+    `,
+  })
+  return {
+    pageProps: {
+      ...(await ctx.Component.getInitialProps?.(ctx.ctx)),
+      ...data.data,
+    },
+  }
+}
+
+export default MyApp
