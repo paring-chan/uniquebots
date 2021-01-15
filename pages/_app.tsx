@@ -38,7 +38,7 @@ function MyApp({ Component, pageProps }: any) {
       maxSnack={6}
       anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
     >
-      <Layout user={pageProps.me} loginURL={pageProps.loginURL}>
+      <Layout user={pageProps.__user} loginURL={pageProps.loginURL}>
         <Component {...pageProps} />
       </Layout>
     </SnackbarProvider>
@@ -58,7 +58,7 @@ MyApp.getInitialProps = async (ctx: AppContext) => {
   const data = await getApolloClient(ctx.ctx).query({
     query: gql`
       query {
-        me {
+        __user: me {
           id
           tag
           avatarURL
