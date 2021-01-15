@@ -27,12 +27,31 @@ class AddBot extends Component<ProviderContext> {
 
   render() {
     return (
-      <div className="pt-4">
+      <div>
         <NextSeo
           title="봇 추가하기"
           description="자신이 만든 봇을 추가해보세요!"
         />
         <div className="text-2xl">봇 추가하기</div>
+        <div className="p-4 rounded-md mt-2 bg-gray-100 dark:bg-discord-black">
+          <div className="text-xl">봇을 등록하기 전 꼭 읽어주세요!</div>
+          <ul>
+            <li>
+              <a
+                className="text-blue-500"
+                target="_blank"
+                href="https://discord.gg/NBdJdABkHG"
+              >
+                디스코드
+              </a>
+              에 참여해주세요
+            </li>
+            <li>
+              개발자 확인 명령어({'<접두사>'} 개발자)를 만들어주세요. 신청한
+              사람의 디스코드 태그가 포함되어야 합니다.
+            </li>
+          </ul>
+        </div>
         <form
           onSubmit={async (e) => {
             e.preventDefault()
