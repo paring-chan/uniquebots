@@ -17,11 +17,12 @@ import Bot from '../types/Bot'
 import config from '../../config.json'
 import User from '../types/User'
 import Library from '../types/Library'
+import BotUpdateInfo from '../inputs/BotUpdateInfo'
 
 @Resolver(Bot)
 export default class {
   @Mutation((returns) => Boolean)
-  async editBot(@Ctx() ctx, @Arg('data') data: BotAddInfo) {
+  async editBot(@Ctx() ctx, @Arg('data') data: BotUpdateInfo) {
     const schema = yup.object().shape({
       id: yup.string().required(),
       brief: yup.string().required(),
@@ -42,6 +43,20 @@ export default class {
       website: yup.string().url(),
       category: yup.array().min(1).required().of(yup.string()),
       invite: yup.string().url().required(),
+      owners: yup
+        .array()
+        .min(1)
+        .of(yup.string())
+        .test({
+          test: async (value) => {
+            for (const i of value) {
+              if (!(await Util.prisma.user.findUnique({ where: { id: i } }))) {
+                return false
+              }
+            }
+            return true
+          },
+        }),
     })
     await schema.validate(data)
     const bot = await Util.prisma.bot.findUnique({
@@ -58,6 +73,46 @@ export default class {
         'You must be an owner of the bot',
         'ERR_UAUTHORIZED',
       )
+    const {
+      id,
+      library,
+      brief,
+      category,
+      description,
+      git,
+      invite,
+      owners,
+      prefix,
+      support,
+      website,
+    } = data
+
+    await Util.prisma.bot.update({
+      where: {
+        id,
+      },
+      data: {
+        library: {
+          connect: {
+            id: library,
+          },
+        },
+        brief,
+        categories: {
+          connect: category.map((r) => ({ id: r })),
+        },
+        description: description,
+        git,
+        invite,
+        owner: {
+          connect: owners.map((r) => ({ id: r })),
+        },
+        prefix,
+        support,
+        website,
+      },
+    })
+    return true
   }
 
   @Mutation((returns) => Boolean)

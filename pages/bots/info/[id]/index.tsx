@@ -197,6 +197,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
       },
     }
   }
+  console.log(data.data.bot)
   return { props: { bot: data.data.bot, me: data.data.me } }
 }
 

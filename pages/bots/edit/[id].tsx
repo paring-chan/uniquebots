@@ -6,8 +6,14 @@ import { Bot, Category } from '../../../types'
 import { NextSeo } from 'next-seo'
 import { getMarkdown } from '../../../lib/markdown'
 import UBSelect from '../../../components/Select/UBSelect'
+import { ProviderContext, withSnackbar } from 'notistack'
+import Router from 'next/router'
 
-const BotEdit: NextPage<{ bot: Bot }> = ({ bot }) => {
+const BotEdit: NextPage<{ bot: Bot; me: string } & ProviderContext> = ({
+  bot,
+  enqueueSnackbar,
+  me,
+}) => {
   const [category, setCategory] = React.useState(
     bot.categories.map((r) => ({ value: r.id, label: r.name })),
   )
@@ -37,7 +43,81 @@ const BotEdit: NextPage<{ bot: Bot }> = ({ bot }) => {
       <form
         onSubmit={async (e) => {
           e.preventDefault()
+          console.log({
+            id: bot.id,
+            category: category.map((r) => r.value),
+            brief: brief,
+            description: description,
+            library: library.value,
+            website: website,
+            git: git,
+            prefix: prefix,
+            invite: invite,
+            owners: Array.from(new Set([me])),
+          })
           const apollo = getApolloClient()
+          const data = await apollo.mutate({
+            mutation: gql`
+              mutation(
+                $id: String!
+                $category: [String!]!
+                $brief: String!
+                $description: String!
+                $library: String!
+                $website: String
+                $git: String
+                $prefix: String!
+                $support: String
+                $invite: String!
+                $owners: [String!]!
+              ) {
+                editBot(
+                  data: {
+                    id: $id
+                    category: $category
+                    brief: $brief
+                    description: $description
+                    library: $library
+                    website: $website
+                    git: $git
+                    prefix: $prefix
+                    support: $support
+                    invite: $invite
+                    owners: $owners
+                  }
+                )
+              }
+            `,
+            variables: {
+              id: bot.id,
+              category: category.map((r) => r.value),
+              brief: brief,
+              description: description,
+              library: library.value,
+              website: website,
+              git: git,
+              prefix: prefix,
+              invite: invite,
+              owners: Array.from(new Set([me])),
+            },
+          })
+          if (data.errors) {
+            data.errors.forEach((r) =>
+              enqueueSnackbar(r.message, {
+                variant: 'error',
+              }),
+            )
+            return
+          }
+          if (data.data?.editBot) {
+            enqueueSnackbar(
+              '봇 정보가 저장되었습니다. 적용되기까지 시간이 걸릴 수 있습니다.',
+              {
+                variant: 'success',
+              },
+            )
+          }
+          return Router.push('/bots/info/[id]', `/bots/info/${bot.id}`)
         }}
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -223,6 +303,9 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
           invite
           name
         }
+        me {
+          id
+        }
       }
     `,
     variables: {
@@ -246,8 +329,8 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
     }
   }
   return {
-    props: { bot: data.bot },
+    props: { bot: data.bot, me: data.me.id },
   }
 }
 
-export default BotEdit
+export default withSnackbar(BotEdit)
