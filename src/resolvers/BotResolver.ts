@@ -18,6 +18,7 @@ import config from '../../config.json'
 import User from '../types/User'
 import Library from '../types/Library'
 import BotUpdateInfo from '../inputs/BotUpdateInfo'
+import crypto from 'crypto'
 
 @Resolver(Bot)
 export default class {
@@ -456,5 +457,14 @@ export default class {
         },
       })
       .then((r) => r.library)
+  }
+
+  @FieldResolver((type) => String, { nullable: true })
+  async token(@Root() parent: Bot) {
+    const bot = await Util.prisma.bot.findUnique({
+      where: {
+        id: parent.id,
+      },
+    })
   }
 }
