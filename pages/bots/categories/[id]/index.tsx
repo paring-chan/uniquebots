@@ -90,7 +90,7 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
       category: {
         ...data.data.category,
         botList: data.data.category.bots.slice(18 * page, 18 * page + 18),
-        page: ctx.query.page,
+        page: ctx.query.page || 1,
       },
     },
   }

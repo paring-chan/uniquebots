@@ -3,7 +3,6 @@ import { NextPageContext } from 'next'
 import React, { Component } from 'react'
 import SearchResult from '../../components/SearchResult'
 import { getApolloClient } from '../../lib/apollo'
-import { Bot } from '../../types'
 
 class Search extends Component<any> {
   render() {
