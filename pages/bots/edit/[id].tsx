@@ -8,6 +8,7 @@ import { getMarkdown } from '../../../lib/markdown'
 import UBSelect from '../../../components/Select/UBSelect'
 import { ProviderContext, withSnackbar } from 'notistack'
 import Router from 'next/router'
+import CopyToClipboard from 'react-copy-to-clipboard'
 
 const BotEdit: NextPage<{ bot: Bot; me: string } & ProviderContext> = ({
   bot,
@@ -28,6 +29,7 @@ const BotEdit: NextPage<{ bot: Bot; me: string } & ProviderContext> = ({
   const [support, setSupport] = React.useState(bot.support)
   const [invite, setInvite] = React.useState(bot.invite)
   const [prefix, setPrefix] = React.useState(bot.prefix)
+  const [token, setToken] = React.useState(bot.token)
 
   return (
     <div>
@@ -39,22 +41,38 @@ const BotEdit: NextPage<{ bot: Bot; me: string } & ProviderContext> = ({
         </code>{' '}
         관리
       </div>
-      <div></div>
+      <div className="mt-2">
+        <CopyToClipboard text={token} onCopy={() => alert('복사되었습니다.')}>
+          <button className="bg-blue-500 p-2 rounded-md">토큰 복사</button>
+        </CopyToClipboard>
+        <button
+          className="bg-blue-500 p-2 rounded-md ml-1"
+          onClick={async () => {
+            const client = getApolloClient()
+            const data = await client.query({
+              query: gql`
+                query($id: String!) {
+                  bot(id: $id) {
+                    token(regenerate: true)
+                  }
+                }
+              `,
+              variables: {
+                id: bot.id,
+              },
+            })
+            if (data?.data?.bot?.token) {
+              setToken(data.data.bot.token)
+              return alert('토큰이 재발급 되었습니다.')
+            }
+          }}
+        >
+          토큰 재발급
+        </button>
+      </div>
       <form
         onSubmit={async (e) => {
           e.preventDefault()
-          console.log({
-            id: bot.id,
-            category: category.map((r) => r.value),
-            brief: brief,
-            description: description,
-            library: library.value,
-            website: website,
-            git: git,
-            prefix: prefix,
-            invite: invite,
-            owners: Array.from(new Set([me])),
-          })
           const apollo = getApolloClient()
           const data = await apollo.mutate({
             mutation: gql`
@@ -280,7 +298,7 @@ const BotEdit: NextPage<{ bot: Bot; me: string } & ProviderContext> = ({
 
 export const getServerSideProps = async (ctx: NextPageContext) => {
   const apollo = getApolloClient(ctx)
-  const { data } = await apollo.query({
+  const { data, errors } = await apollo.query({
     query: gql`
       query($id: String!) {
         bot(id: $id) {
@@ -288,6 +306,7 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
           isOwner
           brief
           description
+          token
           library {
             id
             name
@@ -312,8 +331,8 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
       id: ctx.query.id,
     },
   })
-  if (!data.bot?.isOwner) {
-    if (!data.bot) {
+  if (!data?.bot?.isOwner) {
+    if (!data?.bot) {
       return {
         redirect: {
           destination: '/',

@@ -18,6 +18,7 @@ export interface Bot {
   library: Library
   support: string
   prefix: string
+  token: string
 }
 
 export interface Library {

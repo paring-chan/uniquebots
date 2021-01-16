@@ -478,12 +478,12 @@ export default class {
     })
     if (!bot.owner.find((r) => ctx.user?.id === r.id)) return null
     if (!bot.token || regenerate) {
-      const salt = crypto.randomBytes(1024)
+      const salt = crypto.randomBytes(1024).toString('base64')
       const str = bot.id + salt
       const token = crypto
-        .createHash('md5')
+        .createHash('sha512')
         .update(str)
-        .digest('hex')
+        .digest('base64')
         .toString()
       await Util.prisma.bot.update({
         data: {
