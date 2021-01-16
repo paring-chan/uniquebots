@@ -15,9 +15,11 @@ class SearchResult extends Component<Props> {
         <SearchBar initial={this.props.keyword} />
         <h2 className="text-2xl pt-2">검색 결과 - {this.props.keyword}</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 grid-cols-1">
-          {this.props.results.map((it: Bot, key) => (
-            <BotCard key={key} bot={it} />
-          ))}
+          {this.props.results.length
+            ? this.props.results.map((it: Bot, key) => (
+                <BotCard key={key} bot={it} />
+              ))
+            : '검색 결과가 없습니다.'}
         </div>
       </div>
     )
