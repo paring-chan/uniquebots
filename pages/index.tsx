@@ -18,7 +18,7 @@ const Home = ({ bots, botCount }: { bots: Bot[]; botCount: number }) => {
       />
       <SearchBar />
       <div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2 grid-cols-1">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 grid-cols-1 mb-4">
           {bots.map((bot: Bot) => (
             <BotCard bot={bot} key={bot.id} />
           ))}
@@ -38,7 +38,7 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
 
   if (ctx.query.page) {
     if (!isNaN(Number(ctx.query.page))) {
-      page = Number(ctx.query.page)-1
+      page = Number(ctx.query.page) - 1
     }
   }
 

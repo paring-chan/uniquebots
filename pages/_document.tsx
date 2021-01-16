@@ -9,7 +9,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html style={{ scrollBehavior: 'smooth' }}>
         <Head />
         <body className="dark:bg-discord-dark dark:text-white">
           <Main />

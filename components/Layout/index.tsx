@@ -5,7 +5,10 @@ import Header from './Header'
 class Layout extends Component<any> {
   render() {
     return (
-      <div className="flex flex-col" style={{ minHeight: '100vh' }}>
+      <div
+        className="flex flex-col scrollContainer"
+        style={{ minHeight: '100vh', scrollBehavior: 'smooth' }}
+      >
         <Header {...(this.props as any)} />
         <div className="container mx-auto mt-12 flex-grow">
           <div className="p-2">{this.props.children}</div>
