@@ -3,9 +3,12 @@ import React from 'react'
 import Dropdown from '../Dropdown'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
+import { useRouter } from 'next/router'
 const Header = ({ user, loginURL }: { user: any; loginURL: string }) => {
   const dropdownItemClass =
     'rounded-md p-2 dark:hover:bg-gray-600 cursor-pointer transition-all hover:bg-gray-100'
+
+  const router = useRouter()
 
   return (
     <div
@@ -61,14 +64,24 @@ const Header = ({ user, loginURL }: { user: any; loginURL: string }) => {
                       <Link href="/addbot">
                         <div className={dropdownItemClass}>봇 추가하기</div>
                       </Link>
-                      <Link href="/logout">
+                      <Link
+                        href={`/logout?path=${encodeURIComponent(
+                          router.asPath,
+                        )}`}
+                      >
                         <div className={dropdownItemClass}>로그아웃</div>
                       </Link>
                     </div>
                   )}
                 </Dropdown>
               )
-            return <a href={loginURL}>로그인</a>
+            return (
+              <a
+                href={loginURL + `&state=${encodeURIComponent(router.asPath)}`}
+              >
+                로그인
+              </a>
+            )
           })()}
         </div>
       </div>

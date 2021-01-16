@@ -44,7 +44,7 @@ export function getApolloClient(ctx?: NextPageContext) {
         URL,
         {
           ...params,
-          mutation: params.mutation.loc.source.body,
+          query: params.mutation.loc.source.body,
         },
         {
           headers: {

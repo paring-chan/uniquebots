@@ -190,7 +190,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
       id: ctx.query.id,
     },
   })
-  if (!data.data.bot) {
+  if (!data.data?.bot) {
     return {
       props: {
         error: 404,

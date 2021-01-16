@@ -31,7 +31,7 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
   return {
     redirect: {
       permanent: false,
-      destination: '/',
+      destination: ctx.query.state ? ctx.query.state : '/',
     },
   }
 }
