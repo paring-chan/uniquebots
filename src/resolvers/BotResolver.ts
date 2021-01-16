@@ -460,11 +460,41 @@ export default class {
   }
 
   @FieldResolver((type) => String, { nullable: true })
-  async token(@Root() parent: Bot) {
+  async token(
+    @Root() parent: Bot,
+    @Ctx() ctx,
+    @Arg('regenerate', (type) => Boolean, {
+      nullable: true,
+    })
+    regenerate: boolean,
+  ) {
     const bot = await Util.prisma.bot.findUnique({
       where: {
         id: parent.id,
       },
+      include: {
+        owner: true,
+      },
     })
+    if (!bot.owner.find((r) => ctx.user?.id === r.id)) return null
+    if (!bot.token || regenerate) {
+      const salt = crypto.randomBytes(1024)
+      const str = bot.id + salt
+      const token = crypto
+        .createHash('md5')
+        .update(str)
+        .digest('hex')
+        .toString()
+      await Util.prisma.bot.update({
+        data: {
+          token,
+        },
+        where: {
+          id: bot.id,
+        },
+      })
+      return token
+    }
+    if (bot.token) return bot.token
   }
 }
