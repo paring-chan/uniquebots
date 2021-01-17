@@ -294,7 +294,7 @@ export default class {
   @FieldResolver()
   async avatarURL(@Root() bot: Bot) {
     let data = (await Util.evaluate(
-      Util.getBotQuery(bot.id) + '.avatarURL?.() || ""',
+      Util.getBotQuery(bot.id) + '.avatarURL?.({size: 4096}) || ""',
     )) as string
     if (data) {
       await Util.prisma.bot.update({

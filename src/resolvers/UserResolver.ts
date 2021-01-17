@@ -17,7 +17,7 @@ export default class {
   async avatarURL(@Root() parent: User) {
     const data = await Util.getUser(parent.id)
     return data.avatar
-      ? `https://cdn.discordapp.com/avatars/${data.id}/${data.avatar}`
+      ? `https://cdn.discordapp.com/avatars/${data.id}/${data.avatar}?size=4096`
       : `https://cdn.discordapp.com/embed/avatars/${
           Number(data.discriminator) % 5
         }`
