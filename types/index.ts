@@ -14,11 +14,22 @@ export interface Bot {
   bot: string
   git: string
   isOwner: boolean
-  owners: { id: string; tag: string }[]
+  owners: User[]
   library: Library
   support: string
   prefix: string
   token: string
+  hearts: Heart[]
+}
+
+export interface User {
+  id: string
+  tag: string
+}
+
+export interface Heart {
+  from: User
+  to: Bot
 }
 
 export interface Library {

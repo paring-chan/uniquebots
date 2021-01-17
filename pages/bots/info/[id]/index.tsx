@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Tippy from '@tippyjs/react'
 import { gql } from 'apollo-boost'
+import clsx from 'clsx'
 import { NextPage, NextPageContext } from 'next'
 import { NextSeo } from 'next-seo'
 import Link from 'next/link'
@@ -10,6 +11,8 @@ import { getMarkdown } from '../../../../lib/markdown'
 import { Bot } from '../../../../types'
 
 const BotInfo: NextPage<{ bot: Bot; me: { id: string } }> = ({ bot, me }) => {
+  const [heartClicked, setHeartClicked] = React.useState(false)
+
   return (
     <div>
       <NextSeo
@@ -126,14 +129,31 @@ const BotInfo: NextPage<{ bot: Bot; me: { id: string } }> = ({ bot, me }) => {
             )}
           </div>
           <div>
+            <a
+              className={clsx(
+                'cursor-pointer p-2 flex transition-colors gap-2',
+                {
+                  'bg-gray-100 dark:bg-discord-black hover:bg-gray-200 dark:hover:bg-dark-hover': !heartClicked,
+                  'bg-red-500 hover:bg-red-400': heartClicked,
+                },
+              )}
+              style={{
+                alignItems: 'center',
+              }}
+              onClick={() => setHeartClicked(!heartClicked)}
+            >
+              <FontAwesomeIcon icon={['fas', 'heart']} />
+              <div>하트 {bot.hearts.length}개</div>
+            </a>
+          </div>
+          <div>
             <div className="dark:bg-discord-black bg-gray-100 p-2 border-b dark:border-white border-discord-black">
               개발자
             </div>
             {bot.owners.map((i, k) => (
-              <Link href="/profile/[id]" as={`/profile/${i.id}`}>
+              <Link key={k} href="/profile/[id]" as={`/profile/${i.id}`}>
                 <a
                   href={`/profile/${i.id}`}
-                  key={k}
                   className="bg-gray-100 cursor-pointer dark:bg-discord-black p-2 flex hover:bg-gray-200 dark:hover:bg-dark-hover transition-colors gap-2"
                   style={{
                     alignItems: 'center',
@@ -195,6 +215,11 @@ export async function getServerSideProps(ctx: NextPageContext) {
           support
           invite
           isOwner
+          hearts {
+            from {
+              id
+            }
+          }
           owners {
             id
             tag

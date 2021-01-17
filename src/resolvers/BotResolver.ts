@@ -531,4 +531,62 @@ export default class {
       },
     })
   }
+
+  @FieldResolver((returns) => Boolean)
+  async heartClicked(
+    @Root() bot: Bot,
+    @Arg('patch', (type) => Boolean, { nullable: true }) patch: boolean,
+    @Ctx() ctx,
+    @Arg('user', { nullable: true }) user: string,
+  ) {
+    if (user) {
+      return Boolean(
+        await Util.prisma.heart.findFirst({
+          where: {
+            fromID: user,
+          },
+        }),
+      )
+    }
+    if (!ctx.user) {
+      return false
+    }
+    if (typeof patch === 'boolean') {
+      const h = await Util.prisma.heart.findFirst({
+        where: {
+          fromID: ctx.user.id,
+        },
+      })
+      if (h) {
+        await Util.prisma.heart.delete({
+          where: {
+            id: h.id,
+          },
+        })
+      } else {
+        await Util.prisma.heart.create({
+          data: {
+            from: {
+              connect: {
+                id: ctx.user.id,
+              },
+            },
+            to: {
+              connect: {
+                id: bot.id,
+              },
+            },
+          },
+        })
+      }
+      return patch
+    }
+    return Boolean(
+      await Util.prisma.heart.findFirst({
+        where: {
+          fromID: ctx.user.id,
+        },
+      }),
+    )
+  }
 }
