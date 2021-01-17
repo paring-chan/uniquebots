@@ -53,6 +53,16 @@ import CategoryResolver from './resolvers/CategoryResolver'
             const data = await Util.getUser(result.user.id)
             if (!data) result.user = null
           }
+        } else if (req.headers.authorization.startsWith('Bot ')) {
+          const token = req.headers.authorization.slice('Bot '.length)
+          const b = await Util.prisma.bot.findFirst({
+            where: {
+              token,
+            },
+          })
+          if (b) {
+            result.bot = b
+          }
         }
       }
       return result

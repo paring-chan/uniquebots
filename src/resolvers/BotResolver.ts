@@ -407,7 +407,8 @@ export default class {
   }
 
   @Query((returns) => Bot)
-  async bot(@Arg('id') id: string) {
+  async bot(@Arg('id') id: string, @Ctx() ctx) {
+    if (id === 'me' && ctx.bot) id = ctx.bot.id
     const data = await Util.prisma.bot.findUnique({
       where: {
         id,
@@ -496,5 +497,28 @@ export default class {
       return token
     }
     if (bot.token) return bot.token
+  }
+
+  @FieldResolver()
+  async guilds(
+    @Root() bot: Bot,
+    @Ctx() ctx: any,
+    @Arg('patch', (type) => Number, {
+      nullable: true,
+    })
+    patch?: number,
+  ): Promise<number> {
+    if (ctx.bot && ctx.bot.id === bot.id && typeof patch === 'number') {
+      await Util.prisma.bot.update({
+        data: {
+          guilds: patch,
+        },
+        where: {
+          id: bot.id,
+        },
+      })
+      return patch
+    }
+    return bot.guilds
   }
 }
