@@ -10,7 +10,13 @@ class MyDocument extends Document {
   render() {
     return (
       <Html style={{ scrollBehavior: 'smooth' }}>
-        <Head />
+        <Head>
+          <script
+            data-ad-client="ca-pub-4808458196722819"
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+          ></script>
+        </Head>
         <body className="dark:bg-discord-dark dark:text-white">
           <Main />
           <NextScript />

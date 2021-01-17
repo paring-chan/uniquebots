@@ -4,6 +4,8 @@ import Dropdown from '../Dropdown'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
+
 const Header = ({ user, loginURL }: { user: any; loginURL: string }) => {
   const dropdownItemClass =
     'rounded-md p-2 dark:hover:bg-gray-600 cursor-pointer transition-all hover:bg-gray-100'
@@ -33,11 +35,14 @@ const Header = ({ user, loginURL }: { user: any; loginURL: string }) => {
                       className="inline-flex select-none cursor-pointer"
                       style={{ alignItems: 'center' }}
                     >
-                      <img
-                        src={user.avatarURL}
-                        className="h-6 w-6 rounded-full mr-2"
-                        alt="Avatar"
-                      />
+                      <div className="h-6 w-6 relative mr-2">
+                        <Image
+                          src={user.avatarURL}
+                          className="rounded-full"
+                          alt="Avatar"
+                          layout="fill"
+                        />
+                      </div>
                       <span className="md:block hidden">{user.tag}</span>
                       <FontAwesomeIcon
                         icon={['fas', 'angle-down']}

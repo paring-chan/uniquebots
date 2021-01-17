@@ -8,6 +8,7 @@ import Tippy from '@tippyjs/react'
 import Link from 'next/link'
 import BotCard from '../../../components/BotCard'
 import { Bot } from '../../../types'
+import Image from 'next/image'
 
 class Profile extends Component<any> {
   render() {
@@ -28,11 +29,14 @@ class Profile extends Component<any> {
           description={user.description || `${user.tag}님의 프로필입니다.`}
         />
         <div className="bg-white shadow-xl max-w-xl rounded-xl md:flex mx-auto text-black mt-6 dark:bg-discord-black dark:text-white pt-8 md:p-0">
-          <img
-            src={user.avatarURL}
-            alt="avatar"
-            className="w-32 h-32 md:w-48 md:h-auto mx-auto md:rounded-l-xl rounded-full md:rounded-none"
-          />
+          <div className="w-32 h-32 md:w-48 md:h-48 relative">
+            <Image
+              src={user.avatarURL}
+              alt="avatar"
+              className="md:rounded-l-xl rounded-full md:rounded-none"
+              layout="fill"
+            />
+          </div>
           <div className="md:flex-grow flex flex-col p-2 px-8 md:px-2">
             <div className="text-2xl mx-auto md:mx-0 pb-2">{user.tag}</div>
             <div className="mx-auto md:mx-0 pb-2">

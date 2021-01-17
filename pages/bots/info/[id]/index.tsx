@@ -9,6 +9,7 @@ import React from 'react'
 import { getApolloClient } from '../../../../lib/apollo'
 import { getMarkdown } from '../../../../lib/markdown'
 import { Bot } from '../../../../types'
+import Image from 'next/image'
 
 const BotInfo: NextPage<{ bot: Bot; me: { id: string } }> = ({ bot, me }) => {
   const [heartClicked, setHeartClicked] = React.useState(bot.heartClicked)
@@ -29,11 +30,14 @@ const BotInfo: NextPage<{ bot: Bot; me: { id: string } }> = ({ bot, me }) => {
         description={bot.description}
       />
       <div className="flex flex-col md:flex-row gap-2">
-        <img
-          src={bot.avatarURL}
-          alt="avatar"
-          className="md:w-56 md:h-56 w-3/4 mx-auto"
-        />
+        <div className="relative md:w-56 md:h-56 w-3/4">
+          <Image
+            src={bot.avatarURL}
+            alt="avatar"
+            className="mx-auto"
+            layout="fill"
+          />
+        </div>
         <div className="flex-grow">
           <div className="text-3xl">
             {bot.name}
@@ -213,11 +217,14 @@ const BotInfo: NextPage<{ bot: Bot; me: { id: string } }> = ({ bot, me }) => {
                     alignItems: 'center',
                   }}
                 >
-                  <img
-                    src={(i as any).avatarURL}
-                    alt="avatar"
-                    className="w-8 h-8 rounded-full"
-                  />
+                  <div className="w-8 h-8 relative">
+                    <Image
+                      src={(i as any).avatarURL}
+                      alt="avatar"
+                      className="rounded-full"
+                      layout="fill"
+                    />
+                  </div>
                   <div>{i.tag}</div>
                 </a>
               </Link>

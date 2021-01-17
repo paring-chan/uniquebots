@@ -4,15 +4,19 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import React from 'react'
 import { Bot, Status, StatusColors } from '../types'
+import Image from 'next/image'
 
 const BotCard = ({ bot }: { bot: Bot }) => {
   return (
     <div className="rounded-xl bg-white dark:bg-discord-black shadow-xl w-full mt-3 flex">
       <div className="w-1/3">
-        <img
+        <Image
           className="rounded-tl-xl w-full rounded-br-xl"
           src={bot.avatarURL}
           alt="avatar"
+          layout="responsive"
+          width="auto"
+          height="auto"
         />
         <div className="p-2">
           <div className="whitespace-nowrap p-2">
