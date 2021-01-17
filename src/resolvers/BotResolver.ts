@@ -557,7 +557,8 @@ export default class {
           fromID: ctx.user.id,
         },
       })
-      if (h) {
+      if (patch && h) return patch
+      if (!patch && h) {
         await Util.prisma.heart.delete({
           where: {
             id: h.id,

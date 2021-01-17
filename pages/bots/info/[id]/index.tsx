@@ -11,7 +11,8 @@ import { getMarkdown } from '../../../../lib/markdown'
 import { Bot } from '../../../../types'
 
 const BotInfo: NextPage<{ bot: Bot; me: { id: string } }> = ({ bot, me }) => {
-  const [heartClicked, setHeartClicked] = React.useState(false)
+  const [heartClicked, setHeartClicked] = React.useState(bot.heartClicked)
+  const [hearts, setHearts] = React.useState(bot.hearts.length)
 
   return (
     <div>
@@ -129,22 +130,75 @@ const BotInfo: NextPage<{ bot: Bot; me: { id: string } }> = ({ bot, me }) => {
             )}
           </div>
           <div>
-            <a
-              className={clsx(
-                'cursor-pointer p-2 flex transition-colors gap-2',
-                {
-                  'bg-gray-100 dark:bg-discord-black hover:bg-gray-200 dark:hover:bg-dark-hover': !heartClicked,
-                  'bg-red-500 hover:bg-red-400': heartClicked,
-                },
-              )}
-              style={{
-                alignItems: 'center',
-              }}
-              onClick={() => setHeartClicked(!heartClicked)}
-            >
-              <FontAwesomeIcon icon={['fas', 'heart']} />
-              <div>하트 {bot.hearts.length}개</div>
-            </a>
+            {me?.id ? (
+              <a
+                className={clsx(
+                  'cursor-pointer p-2 flex transition-colors gap-2',
+                  {
+                    'bg-gray-100 dark:bg-discord-black hover:bg-gray-200 dark:hover:bg-dark-hover': !heartClicked,
+                    'bg-red-500 hover:bg-red-400': heartClicked,
+                  },
+                )}
+                style={{
+                  alignItems: 'center',
+                }}
+                onClick={async () => {
+                  const apollo = getApolloClient()
+                  const data = {
+                    heartClicked: (
+                      await apollo.query({
+                        query: gql`
+                          query($id: String!, $clicked: Boolean!) {
+                            bot(id: $id) {
+                              heartClicked(patch: $clicked)
+                            }
+                          }
+                        `,
+                        variables: {
+                          id: bot.id,
+                          clicked: !heartClicked,
+                        },
+                      })
+                    ).data.bot.heartClicked,
+                    hearts: (
+                      await apollo.query({
+                        query: gql`
+                          query($id: String!) {
+                            bot(id: $id) {
+                              hearts {
+                                from {
+                                  id
+                                }
+                              }
+                            }
+                          }
+                        `,
+                        variables: {
+                          id: bot.id,
+                        },
+                      })
+                    ).data.bot.hearts.length,
+                  }
+                  setHeartClicked(data.heartClicked)
+                  setHearts(data.hearts)
+                }}
+              >
+                <FontAwesomeIcon icon={['fas', 'heart']} />
+                <div>하트 {hearts}개</div>
+              </a>
+            ) : (
+              <Tippy content="로그인 해주세요">
+                <a
+                  className="p-2 flex transition-colors gap-2 bg-gray-100 dark:bg-discord-black"
+                  style={{
+                    alignItems: 'center',
+                  }}
+                >
+                  <FontAwesomeIcon icon={['fas', 'heart']} />
+                  <div>하트 {hearts}개</div>
+                </a>
+              </Tippy>
+            )}
           </div>
           <div>
             <div className="dark:bg-discord-black bg-gray-100 p-2 border-b dark:border-white border-discord-black">
@@ -209,6 +263,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
           status
           brief
           trusted
+          heartClicked
           website
           git
           description

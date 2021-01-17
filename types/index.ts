@@ -19,6 +19,7 @@ export interface Bot {
   support: string
   prefix: string
   token: string
+  heartClicked: boolean
   hearts: Heart[]
 }
 
