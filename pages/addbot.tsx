@@ -103,9 +103,12 @@ class AddBot extends Component<ProviderContext> {
               ]
             }
 
-            this.props.enqueueSnackbar('봇이 추가되었습니다.', {
-              variant: 'success',
-            }),
+            this.props.enqueueSnackbar(
+              '봇이 등록되었습니다. 심사 대기 후 리스트에 올라갑니다.',
+              {
+                variant: 'success',
+              },
+            ),
               this.setState({ processing: false })
             await Router.push('/')
           }}
