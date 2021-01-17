@@ -15,6 +15,7 @@ model User {
   description   String  @default("")
   bots          Bot[]
   permissions   Int     @default(0)
+  Heart         Heart[]
 }
 
 model Bot {
@@ -39,6 +40,15 @@ model Bot {
   status          String     @default("online")
   invite          String
   token           String     @default("")
+  heart           Heart[]
+}
+
+model Heart {
+  id     Int    @id @default(autoincrement())
+  fromID String
+  toID   String
+  from   User   @relation(fields: [fromID], references: [id])
+  to     Bot    @relation(fields: [toID], references: [id])
 }
 
 model Judge {

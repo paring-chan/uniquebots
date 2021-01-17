@@ -125,6 +125,30 @@ const BotInfo: NextPage<{ bot: Bot; me: { id: string } }> = ({ bot, me }) => {
               </Link>
             )}
           </div>
+          <div>
+            <div className="dark:bg-discord-black bg-gray-100 p-2 border-b dark:border-white border-discord-black">
+              개발자
+            </div>
+            {bot.owners.map((i, k) => (
+              <Link href="/profile/[id]" as={`/profile/${i.id}`}>
+                <a
+                  href={`/profile/${i.id}`}
+                  key={k}
+                  className="bg-gray-100 cursor-pointer dark:bg-discord-black p-2 flex hover:bg-gray-200 dark:hover:bg-dark-hover transition-colors gap-2"
+                  style={{
+                    alignItems: 'center',
+                  }}
+                >
+                  <img
+                    src={(i as any).avatarURL}
+                    alt="avatar"
+                    className="w-8 h-8 rounded-full"
+                  />
+                  <div>{i.tag}</div>
+                </a>
+              </Link>
+            ))}
+          </div>
           <div className="dark:bg-discord-black bg-gray-100">
             {bot.discordVerified && (
               <Tippy content="디스코드에서 인증받은 봇입니다.">
@@ -174,6 +198,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
           owners {
             id
             tag
+            avatarURL
           }
           discordVerified
           categories {
