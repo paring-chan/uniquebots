@@ -19,6 +19,7 @@ import User from '../types/User'
 import Library from '../types/Library'
 import BotUpdateInfo from '../inputs/BotUpdateInfo'
 import crypto from 'crypto'
+import Heart from '../types/Heart'
 
 @Resolver(Bot)
 export default class {
@@ -520,5 +521,14 @@ export default class {
       return patch
     }
     return bot.guilds
+  }
+
+  @FieldResolver((returns) => [Heart])
+  async hearts(@Root() bot: Bot) {
+    return Util.prisma.heart.findMany({
+      where: {
+        toID: bot.id,
+      },
+    })
   }
 }

@@ -17,9 +17,16 @@ import http from 'http'
 import chalk from 'chalk'
 import next from 'next'
 import CategoryResolver from './resolvers/CategoryResolver'
+import HeartResolver from './resolvers/HeartResolver'
 ;(async () => {
   const schema = await buildSchema({
-    resolvers: [QueryResolver, UserResolver, BotResolver, CategoryResolver],
+    resolvers: [
+      QueryResolver,
+      UserResolver,
+      BotResolver,
+      CategoryResolver,
+      HeartResolver,
+    ],
   })
 
   // For webstorm intellisense
