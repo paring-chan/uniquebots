@@ -9,7 +9,7 @@ import Axios from 'axios'
 
 export let apolloClient: ApolloClient<any>
 
-const URL = 'https://beta.uniquebots.kr/graphql'
+const URL = 'https://uniquebots.kr/graphql'
 
 export function getApolloClient(ctx?: NextPageContext) {
   if (apolloClient) return apolloClient
