@@ -294,7 +294,7 @@ export default class {
   @FieldResolver()
   async avatarURL(@Root() bot: Bot) {
     let data = (await Util.evaluate(
-      Util.getBotQuery(bot.id) + '.avatarURL?.({size: 4096}) || ""',
+      Util.getBotQuery(bot.id) + '.avatarURL?.({size: 4096, format: "png"}) || ""',
     )) as string
     if (data) {
       await Util.prisma.bot.update({
@@ -528,7 +528,7 @@ export default class {
     return Util.prisma.heart.findMany({
       where: {
         toID: bot.id,
-      },
+      }
     })
   }
 
@@ -544,6 +544,7 @@ export default class {
         await Util.prisma.heart.findFirst({
           where: {
             fromID: user,
+            toID: bot.id
           },
         }),
       )
@@ -555,6 +556,7 @@ export default class {
       const h = await Util.prisma.heart.findFirst({
         where: {
           fromID: ctx.user.id,
+          toID: bot.id
         },
       })
       if (patch && h) return patch
@@ -586,6 +588,7 @@ export default class {
       await Util.prisma.heart.findFirst({
         where: {
           fromID: ctx.user.id,
+          toID: bot.id
         },
       }),
     )

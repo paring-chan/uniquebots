@@ -43,10 +43,12 @@ const BotEdit: NextPage<{ bot: Bot; me: string } & ProviderContext> = ({
       </div>
       <div className="mt-2">
         <CopyToClipboard text={token} onCopy={() => alert('복사되었습니다.')}>
-          <button className="bg-blue-500 p-2 rounded-md">토큰 복사</button>
+          <button className="bg-blue-500 text-white p-2 rounded-md">
+            토큰 복사
+          </button>
         </CopyToClipboard>
         <button
-          className="bg-blue-500 p-2 rounded-md ml-1"
+          className="bg-blue-500 p-2 rounded-md ml-1 text-white"
           onClick={async () => {
             const client = getApolloClient()
             const data = await client.query({
