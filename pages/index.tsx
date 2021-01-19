@@ -9,7 +9,15 @@ import { getApolloClient } from '../lib/apollo'
 import Paginator from '../components/Paginator'
 import Router from 'next/router'
 
-const Home = ({ bots, botCount }: { bots: Bot[]; botCount: number }) => {
+const Home = ({
+  bots,
+  botCount,
+  page,
+}: {
+  bots: Bot[]
+  botCount: number
+  page: number
+}) => {
   return (
     <>
       <NextSeo
@@ -27,6 +35,7 @@ const Home = ({ bots, botCount }: { bots: Bot[]; botCount: number }) => {
           onChange={(v) => Router.push('/bots/all/[page]', `/bots/all/${v}`)}
           items={botCount}
           itemsPerPage={18}
+          current={page}
         />
       </div>
     </>
@@ -69,6 +78,7 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
     props: {
       bots: data.data.bots.slice(18 * page, 18 * page + 18),
       botCount: data.data.bots.length,
+      page: ctx.query.page || 1,
     },
   }
 }
