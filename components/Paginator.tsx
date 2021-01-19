@@ -42,8 +42,9 @@ const Paginator = ({
               className={clsx(
                 'p-2 rounded-full w-8 h-8 flex justify-center cursor-pointer transition-colors',
                 {
-                  'bg-blue-500': current === it,
-                  'bg-discord-black': current !== it,
+                  'bg-blue-500 text-white': current === it,
+                  'dark:bg-discord-black bg-gray-100 text-black dark:text-white':
+                    current !== it,
                 },
               )}
               style={{ alignItems: 'center' }}
