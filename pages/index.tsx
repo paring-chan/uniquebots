@@ -78,7 +78,7 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
     props: {
       bots: data.data.bots.slice(18 * page, 18 * page + 18),
       botCount: data.data.bots.length,
-      page: ctx.query.page || 1,
+      page: page + 1,
     },
   }
 }
