@@ -72,3 +72,8 @@ model Library {
   name String
   bots Bot[]
 }
+
+model Tag {
+  id  String @id
+  res String
+}
