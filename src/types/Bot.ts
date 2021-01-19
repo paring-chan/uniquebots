@@ -47,6 +47,9 @@ class Bot {
   support: string
 
   @Field()
+  premium: boolean
+
+  @Field()
   prefix: string
 }
 

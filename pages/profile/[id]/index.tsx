@@ -96,6 +96,8 @@ export async function getServerSideProps(ctx: NextPageContext) {
             id
             name
             avatarURL
+            slug
+            premium
             guilds
             status
             brief

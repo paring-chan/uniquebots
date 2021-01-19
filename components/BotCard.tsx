@@ -80,7 +80,7 @@ const BotCard = ({ bot }: { bot: Bot }) => {
               </a>
             </Tippy>
           )}
-          <Link href="/bots/info/[id]" as={`/bots/info/${bot.id}`}>
+          <Link href="/bots/info/[id]" as={`/bots/info/${bot.slug || bot.id}`}>
             <a className="cursor-pointer p-3 w-1/2 text-center hover:bg-blue-400 hover:text-white transition-colors rounded-br-xl whitespace-nowrap">
               더보기
             </a>

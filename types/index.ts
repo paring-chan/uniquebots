@@ -21,6 +21,8 @@ export interface Bot {
   token: string
   heartClicked: boolean
   hearts: Heart[]
+  premium: boolean
+  slug: string
 }
 
 export interface User {

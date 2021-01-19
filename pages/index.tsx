@@ -53,6 +53,8 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
           guilds
           status
           brief
+          slug
+          premium
           trusted
           invite
           categories {

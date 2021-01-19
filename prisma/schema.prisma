@@ -41,6 +41,8 @@ model Bot {
   invite          String
   token           String     @default("")
   heart           Heart[]
+  slug            String?    @unique
+  premium         Boolean    @default(false)
 }
 
 model Heart {

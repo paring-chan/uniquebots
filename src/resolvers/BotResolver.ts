@@ -294,7 +294,8 @@ export default class {
   @FieldResolver()
   async avatarURL(@Root() bot: Bot) {
     let data = (await Util.evaluate(
-      Util.getBotQuery(bot.id) + '.avatarURL?.({size: 4096, format: "png"}) || ""',
+      Util.getBotQuery(bot.id) +
+        '.avatarURL?.({size: 4096, format: "png"}) || ""',
     )) as string
     if (data) {
       await Util.prisma.bot.update({
@@ -415,7 +416,15 @@ export default class {
         id,
       },
     })
-    if (!data) return null
+    if (!data) {
+      const data2 = await Util.prisma.bot.findUnique({
+        where: {
+          slug: id,
+        },
+      })
+      if (data2) return data2
+      return null
+    }
     return data
   }
 
@@ -528,7 +537,7 @@ export default class {
     return Util.prisma.heart.findMany({
       where: {
         toID: bot.id,
-      }
+      },
     })
   }
 
@@ -544,7 +553,7 @@ export default class {
         await Util.prisma.heart.findFirst({
           where: {
             fromID: user,
-            toID: bot.id
+            toID: bot.id,
           },
         }),
       )
@@ -556,7 +565,7 @@ export default class {
       const h = await Util.prisma.heart.findFirst({
         where: {
           fromID: ctx.user.id,
-          toID: bot.id
+          toID: bot.id,
         },
       })
       if (patch && h) return patch
@@ -588,9 +597,23 @@ export default class {
       await Util.prisma.heart.findFirst({
         where: {
           fromID: ctx.user.id,
-          toID: bot.id
+          toID: bot.id,
         },
       }),
     )
+  }
+
+  @FieldResolver((returns) => String, { nullable: true })
+  async slug(@Root() bot: Bot) {
+    if (!bot.premium) return null
+    const b = await Util.prisma.bot.findUnique({
+      where: {
+        id: bot.id,
+      },
+      select: {
+        slug: true,
+      },
+    })
+    return b.slug || null
   }
 }
