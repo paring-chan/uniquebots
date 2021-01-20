@@ -62,6 +62,11 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
               id
               name
             }
+            hearts {
+              from {
+                id
+              }
+            }
           }
           name
           id
@@ -87,6 +92,14 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
       page = n - 1
     }
   }
+  data.data.bots.sort((a, b) => {
+    if (b.hearts.length !== a.hearts.length)
+      return b.hearts.length - a.hearts.length
+    if (b.guilds > a.guilds) {
+      return 1
+    }
+    return -1
+  })
   return {
     props: {
       category: {
