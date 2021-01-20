@@ -117,6 +117,21 @@ const BotInfo: NextPage<{ bot: Bot; me: { id: string } }> = ({ bot, me }) => {
                 Git
               </a>
             )}
+            {bot.support && (
+              <a
+                href={bot.support}
+                target="_blank"
+                className="hover:bg-gray-200 bg-gray-100 dark:bg-discord-black p-2 flex dark:hover:bg-dark-hover transition-colors"
+                style={{ alignItems: 'center' }}
+              >
+                <FontAwesomeIcon
+                  icon={['fab', 'discord']}
+                  className="mr-2"
+                  size="2x"
+                />
+                서포트 서버
+              </a>
+            )}
             {bot.owners.find((r) => r.id === me?.id) && (
               <Link href="/bots/edit/[id]" as={`/bots/edit/${bot.id}`}>
                 <div
