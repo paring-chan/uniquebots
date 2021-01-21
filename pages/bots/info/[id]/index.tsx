@@ -30,31 +30,40 @@ const BotInfo: NextPage<{ bot: Bot; me: { id: string } }> = ({ bot, me }) => {
         description={bot.description}
       />
       <div className="flex flex-col md:flex-row gap-2">
-        <div className="relative md:w-56 md:h-56 w-3/4">
-          <Image
-            src={bot.avatarURL}
-            alt="avatar"
-            className="mx-auto"
-            layout="fill"
-          />
-        </div>
         <div className="flex-grow">
-          <div className="text-3xl">
-            {bot.name}
-            {bot.trusted ? (
-              <div className="ml-2 inline-block">
-                <Tippy content="UniqueBots에서 인증받은 봇입니다.">
-                  <div>
-                    <FontAwesomeIcon
-                      className="text-blue-500"
-                      icon={['fas', 'check']}
-                    />
+          <div className="flex flex-col md:flex-row gap-2">
+            <div className="relative w-56 h-56 mx-auto md:mx-0">
+              <Image src={bot.avatarURL} alt="avatar" layout="fill" />
+            </div>
+            <div>
+              <div className="text-3xl text-center md:text-left">
+                {bot.name}
+                {bot.trusted ? (
+                  <div className="ml-2 inline-block">
+                    <Tippy content="UniqueBots에서 인증받은 봇입니다.">
+                      <div>
+                        <FontAwesomeIcon
+                          className="text-blue-500"
+                          icon={['fas', 'check']}
+                        />
+                      </div>
+                    </Tippy>
                   </div>
-                </Tippy>
+                ) : null}
               </div>
-            ) : null}
+              <div className="text-xl text-center md:text-left">
+                {bot.brief}
+              </div>
+            </div>
           </div>
-          <div className="text-xl">{bot.brief}</div>
+          <div className="mt-4 bg-gray-100 dark:bg-discord-black p-4">
+            <div
+              className="markdown"
+              dangerouslySetInnerHTML={{
+                __html: getMarkdown().render(bot.description),
+              }}
+            />
+          </div>
         </div>
         <div className="md:w-1/4 lg:w-1/5 flex flex-col gap-2">
           <div>
@@ -259,14 +268,6 @@ const BotInfo: NextPage<{ bot: Bot; me: { id: string } }> = ({ bot, me }) => {
             )}
           </div>
         </div>
-      </div>
-      <div className="mt-4 bg-gray-100 dark:bg-discord-black p-4">
-        <div
-          className="markdown"
-          dangerouslySetInnerHTML={{
-            __html: getMarkdown().render(bot.description),
-          }}
-        />
       </div>
     </div>
   )

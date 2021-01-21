@@ -92,7 +92,7 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
       page = n - 1
     }
   }
-  data.data.bots.sort((a, b) => {
+  data.data.category.bots.sort((a, b) => {
     if (b.hearts.length !== a.hearts.length)
       return b.hearts.length - a.hearts.length
     if (b.guilds > a.guilds) {
