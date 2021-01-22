@@ -105,6 +105,8 @@ import HeartResolver from './resolvers/HeartResolver'
         },
       },
     ],
+    playground: true,
+    introspection: true
   })
 
   apollo.applyMiddleware({ app })

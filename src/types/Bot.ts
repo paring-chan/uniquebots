@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType, Resolver } from 'type-graphql'
+import { Field, ID, ObjectType, Resolver, Int } from 'type-graphql'
 import Category from './Category'
 
 @ObjectType()
@@ -19,7 +19,7 @@ class Bot {
   @Field()
   discordVerified: boolean
 
-  @Field()
+  @Field(type => Int)
   guilds: number
 
   @Field()

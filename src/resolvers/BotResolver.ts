@@ -7,6 +7,7 @@ import {
   Query,
   Resolver,
   Root,
+  Int
 } from 'type-graphql'
 import Util from '../Util'
 import BotAddInfo from '../inputs/BotAddInfo'
@@ -513,7 +514,7 @@ export default class {
   async guilds(
     @Root() bot: Bot,
     @Ctx() ctx: any,
-    @Arg('patch', (type) => Number, {
+    @Arg('patch', (type) => Int, {
       nullable: true,
     })
     patch?: number,
