@@ -492,11 +492,11 @@ export default class {
     if (!bot.token || regenerate) {
       const salt = crypto.randomBytes(1024).toString('base64')
       const str = bot.id + salt
-      const token = crypto
+      const token = Buffer.from(crypto
         .createHash('sha512')
         .update(str)
         .digest('base64')
-        .toString()
+        .toString()).toString('base64')
       await Util.prisma.bot.update({
         data: {
           token,

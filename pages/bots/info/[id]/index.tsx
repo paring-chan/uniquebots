@@ -10,6 +10,7 @@ import { getApolloClient } from '../../../../lib/apollo'
 import { getMarkdown } from '../../../../lib/markdown'
 import { Bot } from '../../../../types'
 import Image from 'next/image'
+import Advertisement from '../../../../components/Advertisement'
 
 const BotInfo: NextPage<{ bot: Bot; me: { id: string } }> = ({ bot, me }) => {
   const [heartClicked, setHeartClicked] = React.useState(bot.heartClicked)
@@ -265,13 +266,17 @@ const BotInfo: NextPage<{ bot: Bot; me: { id: string } }> = ({ bot, me }) => {
             </div>
           </div>
           <div className="block md:hidden">{c}</div>
-          <div className="mt-4 bg-gray-100 dark:bg-discord-black p-4">
-            <div
-              className="markdown"
-              dangerouslySetInnerHTML={{
-                __html: getMarkdown().render(bot.description),
-              }}
-            />
+          <div>
+            {!bot.premium && <Advertisement />}
+            <div className="mt-4 bg-gray-100 dark:bg-discord-black p-4 w-full">
+              <div
+                className="markdown"
+                dangerouslySetInnerHTML={{
+                  __html: getMarkdown().render(bot.description),
+                }}
+              />
+            </div>
+            {!bot.premium && <Advertisement />}
           </div>
         </div>
         <div className="hidden md:block md:w-1/4 lg:w-1/5">{c}</div>

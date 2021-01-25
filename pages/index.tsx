@@ -8,6 +8,7 @@ import { NextPageContext } from 'next'
 import { getApolloClient } from '../lib/apollo'
 import Paginator from '../components/Paginator'
 import Router from 'next/router'
+import Advertisement from '../components/Advertisement'
 
 const Home = ({
   bots,
@@ -25,6 +26,7 @@ const Home = ({
         description="UNIQUEBOTS, 디스코드 봇 리스트"
       />
       <SearchBar />
+      <Advertisement />
       <div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 grid-cols-1 mb-4">
           {bots.map((bot: Bot) => (
@@ -38,6 +40,7 @@ const Home = ({
           current={page}
         />
       </div>
+      <Advertisement />
     </>
   )
 }

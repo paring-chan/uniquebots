@@ -7,6 +7,7 @@ import { NextSeo } from 'next-seo'
 import BotCard from '../../../../components/BotCard'
 import Paginator from '../../../../components/Paginator'
 import Router from 'next/router'
+import Advertisement from '../../../../components/Advertisement'
 
 const CategoryPage: NextPage<{ category: Category; page: number }> = ({
   category,
@@ -21,11 +22,13 @@ const CategoryPage: NextPage<{ category: Category; page: number }> = ({
         description={`카테고리 ${category.name}의 봇 목록입니다.`}
       />
       <div className="text-3xl">카테고리 - {category.name}</div>
+      <Advertisement />
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2 grid-cols-1">
         {(category as any).botList.map((it, key) => (
           <BotCard bot={it} key={key} />
         ))}
       </div>
+      <Advertisement />
       <Paginator
         items={category.bots.length}
         itemsPerPage={18}
