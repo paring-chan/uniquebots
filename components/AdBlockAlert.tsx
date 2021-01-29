@@ -19,7 +19,7 @@ class AdBlockAlert extends React.Component {
         style={{ width: '100vw', height: '100vh', position: 'fixed' }}
         ref={this.vantaRef}
       >
-        <div className="p-12 md:p-24 lg:w-1/2">
+        <div className="p-12 md:p-24 lg:w-1/2 text-white">
           <div className="text-2xl">Adblock을 비활성화 해주세요!</div>
           <button
             onClick={() => window.location.reload()}
