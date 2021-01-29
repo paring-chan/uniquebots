@@ -79,8 +79,10 @@
     "socket.io": "^3.0.5",
     "socket.io-client": "^3.0.5",
     "tailwindcss": "^2.0.2",
+    "three": "^0.125.1",
     "type-graphql": "^1.1.1",
     "uuid": "^8.3.2",
+    "vanta": "^0.5.21",
     "yup": "^0.32.8"
   },
   "scripts": {
