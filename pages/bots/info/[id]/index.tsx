@@ -267,8 +267,8 @@ const BotInfo: NextPage<{ bot: Bot; me: { id: string } }> = ({ bot, me }) => {
           </div>
           <div className="block md:hidden">{c}</div>
           <div>
-            {!bot.premium && <Advertisement />}
-            <div className="mt-4 bg-gray-100 dark:bg-discord-black p-4 w-full">
+            {!bot.premium && <Advertisement className="w-full mt-4" />}
+            <div className="mt-2 bg-gray-100 dark:bg-discord-black p-4 w-full">
               <div
                 className="markdown"
                 dangerouslySetInnerHTML={{
@@ -276,7 +276,7 @@ const BotInfo: NextPage<{ bot: Bot; me: { id: string } }> = ({ bot, me }) => {
                 }}
               />
             </div>
-            {!bot.premium && <Advertisement />}
+            {!bot.premium && <Advertisement className="w-full mt-2" />}
           </div>
         </div>
         <div className="hidden md:block md:w-1/4 lg:w-1/5">{c}</div>

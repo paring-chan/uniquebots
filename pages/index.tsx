@@ -26,9 +26,9 @@ const Home = ({
         description="UNIQUEBOTS, 디스코드 봇 리스트"
       />
       <SearchBar />
-      <Advertisement />
       <div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 grid-cols-1 mb-4">
+          <Advertisement className="w-full mt-3" />
           {bots.map((bot: Bot) => (
             <BotCard bot={bot} key={bot.id} />
           ))}
@@ -40,7 +40,6 @@ const Home = ({
           current={page}
         />
       </div>
-      <Advertisement />
     </>
   )
 }

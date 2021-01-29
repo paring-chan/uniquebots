@@ -12,9 +12,20 @@ class MyDocument extends Document {
       <Html style={{ scrollBehavior: 'smooth' }}>
         <Head>
           <script
-            data-ad-client="ca-pub-4808458196722819"
             async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+          ></script>
+          <ins
+            class="kakao_ad_area"
+            style="display:none;"
+            data-ad-unit="DAN-cg3Y6eju0wg9GWlA"
+            data-ad-width="320"
+            data-ad-height="100"
+          ></ins>
+          <script
+            type="text/javascript"
+            src="//t1.daumcdn.net/kas/static/ba.min.js"
+            async
           ></script>
         </Head>
         <body className="dark:bg-discord-dark dark:text-white">
