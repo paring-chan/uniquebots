@@ -10,13 +10,8 @@ export default class extends Listener {
     })
   }
   async exec() {
-    const app = await this.client.fetchApplication()
-    let owners
-    if (app.owner instanceof Team) {
-      owners = app.owner.members.map((i) => i.id)
-    } else {
-      owners = [app.owner.id]
-    }
+    const users = await global.prisma.user.findMany()
+    const owners = users.filter((r) => r.permissions & 1).map((r) => r.id)
     this.client.ownerID = owners
     this.client.dokdo = new Dokdo(this.client, {
       noPerm(msg) {

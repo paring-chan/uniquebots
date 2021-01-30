@@ -17,7 +17,7 @@ export default class extends Command {
           match: 'rest',
         },
       ],
-      userPermissions: 'ADMINISTRATOR',
+      ownerOnly: true,
     })
   }
   async exec(

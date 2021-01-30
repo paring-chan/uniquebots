@@ -14,7 +14,7 @@ export default class extends Command {
           type: 'member',
         },
       ],
-      userPermissions: 'ADMINISTRATOR',
+      ownerOnly: true,
     })
   }
   async exec(msg: Message, { bot }: { bot: GuildMember }) {

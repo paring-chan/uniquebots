@@ -14,7 +14,7 @@ export default class extends Command {
           type: 'string',
         },
       ],
-      userPermissions: 'ADMINISTRATOR',
+      ownerOnly: true,
     })
   }
   async exec(msg: Message, { operation }: { operation: string }) {
