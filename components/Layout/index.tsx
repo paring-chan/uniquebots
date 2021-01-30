@@ -4,20 +4,8 @@ import Footer from './Footer'
 import Header from './Header'
 
 class Layout extends Component<any> {
-  state = {
-    adblock: false,
-  }
-
-  componentDidMount() {
-    if (
-      typeof window !== 'undefined' &&
-      typeof (window as any).adsbygoogle === 'undefined'
-    )
-      this.setState({ adblock: true })
-  }
-
   render() {
-    return this.state.adblock ? (
+    return this.props.adblock ? (
       <AdBlockAlert />
     ) : (
       <div

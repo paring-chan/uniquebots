@@ -23,7 +23,38 @@ Router.events.on('routeChangeComplete', () => {
 
 library.add(fas, fab)
 
+declare var fuckAdBlock: any
+declare var FuckAdBlock: any
+
 function MyApp({ Component, pageProps }: any) {
+  const [adblock, setAdblock] = React.useState(false)
+  React.useEffect(() => {
+    function adBlockDetected() {
+      setAdblock(true)
+    }
+
+    if (
+      typeof fuckAdBlock !== 'undefined' ||
+      typeof FuckAdBlock !== 'undefined'
+    ) {
+      adBlockDetected()
+    } else {
+      var importFAB = document.createElement('script')
+      importFAB.onload = function () {
+        fuckAdBlock.onDetected(adBlockDetected)
+      }
+      importFAB.onerror = function () {
+        adBlockDetected()
+      }
+      importFAB.integrity =
+        'sha256-xjwKUY/NgkPjZZBOtOxRYtK20GaqTwUCf7WYCJ1z69w='
+      importFAB.crossOrigin = 'anonymous'
+      importFAB.src =
+        'https://cdnjs.cloudflare.com/ajax/libs/fuckadblock/3.2.1/fuckadblock.min.js'
+      document.head.appendChild(importFAB)
+    }
+  }, [])
+
   if (typeof localStorage !== 'undefined') {
     const dark = !!localStorage.getItem('dark')
     if (dark) {
@@ -39,7 +70,11 @@ function MyApp({ Component, pageProps }: any) {
       maxSnack={6}
       anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
     >
-      <Layout user={pageProps.__user} loginURL={pageProps.loginURL}>
+      <Layout
+        adblock={adblock}
+        user={pageProps.__user}
+        loginURL={pageProps.loginURL}
+      >
         <Component {...pageProps} />
       </Layout>
     </SnackbarProvider>
