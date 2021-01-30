@@ -1,6 +1,6 @@
 import { Command } from 'discord-akairo'
 import { Message } from 'discord.js'
-import { ProcessManager } from 'dokdo'
+import { ProcessManager } from 'dokdo/src/utils'
 
 export default class extends Command {
   constructor() {
@@ -17,6 +17,7 @@ export default class extends Command {
           id: 'query',
           default: null,
           type: 'string',
+          match: 'rest',
         },
       ],
     })
@@ -27,8 +28,10 @@ export default class extends Command {
   ) {
     if (!['query', 'execute'].includes(operation) || !query)
       return msg.reply('사용법: !sql <query|execute> <쿼리>')
+    console.log(query)
     if (operation === 'query') {
       const data = await global.prisma.$queryRaw(query)
+      console.log(data)
       const pm = new (ProcessManager as any)(
         msg,
         require('util').inspect(data),
