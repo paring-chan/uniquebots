@@ -59,6 +59,36 @@ export default class extends Command {
         },
       ])
     } else {
+      const data = await global.prisma.$executeRaw(query)
+      const pm = new (ProcessManager as any)(
+        msg,
+        require('util').inspect(data),
+        this.client.dokdo,
+        {
+          lang: 'json',
+          secrets: (
+            await global.prisma.bot.findMany({ select: { token: true } })
+          ).map((r) => r.token),
+        },
+      )
+      await pm.init()
+      await pm.addAction([
+        {
+          emoji: '⏹️',
+          action: ({ manager }) => manager.destroy(),
+          requirePage: true,
+        },
+        {
+          emoji: '◀️',
+          action: ({ manager }) => manager.previousPage(),
+          requirePage: true,
+        },
+        {
+          emoji: '▶️',
+          action: ({ manager }) => manager.nextPage(),
+          requirePage: true,
+        },
+      ])
     }
   }
 }
