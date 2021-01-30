@@ -276,7 +276,6 @@ const BotInfo: NextPage<{ bot: Bot; me: { id: string } }> = ({ bot, me }) => {
                 }}
               />
             </div>
-            {!bot.premium && <Advertisement className="w-full mt-2" />}
           </div>
         </div>
         <div className="hidden md:block md:w-1/4 lg:w-1/5">{c}</div>
