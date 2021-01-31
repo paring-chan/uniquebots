@@ -29,7 +29,6 @@ const Header = ({ user, loginURL }: { user: any; loginURL: string }) => {
             if (user)
               return (
                 <Dropdown
-                  leftOffset={-20}
                   button={({ opened }) => (
                     <div
                       className="inline-flex select-none cursor-pointer"
@@ -59,13 +58,6 @@ const Header = ({ user, loginURL }: { user: any; loginURL: string }) => {
                       <Link href="/profile/[id]" as={`/profile/${user.id}`}>
                         <div className={dropdownItemClass}>프로필</div>
                       </Link>
-                      {user.admin && (
-                        <>
-                          <Link href="/admin">
-                            <div className={dropdownItemClass}>관리</div>
-                          </Link>
-                        </>
-                      )}
                       <Link href="/addbot">
                         <div className={dropdownItemClass}>봇 추가하기</div>
                       </Link>
