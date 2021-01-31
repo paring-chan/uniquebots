@@ -30,7 +30,7 @@ const Home = ({
       />
       <SearchBar />
       <div className="py-2">
-        <div className="text-xl">카테고리</div>
+        <div className="text-2xl">카테고리</div>
         <div className="flex flex-wrap gap-1">
           {categories.map((it, key) => (
             <Link
