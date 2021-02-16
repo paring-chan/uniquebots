@@ -1,5 +1,5 @@
-.idea
-
+# Created by .ignore support plugin (hsz.mobi)
+### Node template
 # Logs
 logs
 *.log
@@ -117,8 +117,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-config.json
+# idea
 
-schema.gql
-src/**/*.js
-bot/**/*.js
+.idea

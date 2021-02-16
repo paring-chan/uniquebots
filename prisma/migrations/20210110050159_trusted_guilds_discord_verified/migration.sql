@@ -1,4 +1,0 @@
--- AlterTable
-ALTER TABLE "Bot" ADD COLUMN     "trusted" BOOLEAN NOT NULL DEFAULT false,
-ADD COLUMN     "guilds" INTEGER NOT NULL DEFAULT 0,
-ADD COLUMN     "discordVerified" BOOLEAN NOT NULL DEFAULT false;
