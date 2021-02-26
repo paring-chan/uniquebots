@@ -28,6 +28,8 @@ const { PrismaClient } = require('@prisma/client')
   await addCategory('gambling', '도박')
   await addCategory('total', '전적')
   await addCategory('meme', '밈')
+  await addCategory('leveling', '레벨링')
+  await addCategory('webdash', '웹 대시보드')
 
   // lib
   await addLib('discordjs', 'discord.js')
