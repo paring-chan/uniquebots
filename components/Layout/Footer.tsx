@@ -50,7 +50,7 @@ const Footer = () => {
           <div className="hidden md:block px-2">|</div>
           <div className="whitespace-nowrap">대표 : 송찬우</div>
           <div className="hidden md:block px-2">|</div>
-          <div className="whitespace-nowrap">사업자등록번호: 799-06-00477</div>
+          <div className="whitespace-nowrap">사업자등록번호: 799-60-00477</div>
         </div>
       </div>
     </div>
